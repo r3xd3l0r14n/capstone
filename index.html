@@ -36,12 +36,14 @@
 
     function openHandler(e){
         $("#status").text("connected to server");
-        playerName = $('playerName').val();
+        playerName = $('#playerName').val();
 
         sendMessage(["new_player", playerName]);
 
         $("#mainScreen").hide();
         $("#playScreen").show();
+
+        $(document).bind("keydown", keyhandler);
     }
 
     function messageHandler(e){
