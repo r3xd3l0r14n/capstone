@@ -23,6 +23,7 @@ async def wshandler(request):
     print("Connected")
     app = request.app
     ws = web.WebSocketResponse()
+    await ws.prepare(request)
 
     player = None
     while True:
@@ -33,4 +34,28 @@ async def wshandler(request):
             data = json.loads(msg.data)
             if not player:
                 if data[0] == "new_player":
-                    player = game.new_player(data[1], ws)
+                    player = Game.new_player(data[1], ws)
+        elif msg.tp == web.MsgType.close:
+            break
+
+    print("Closed Connection")
+    return ws
+
+# TODO fill with basic game Loop code (should be calling the game functions to handle dealing and decks)
+# async def game_loop(game):
+
+event_loop = asyncio.get_event_loop()
+event_loop.set_debug(True)
+
+app = web.Application()
+
+app["game"] = Game()
+
+app.router.add_route('GET', '/connect', wshandler)
+app.router.add_route('GET', '/{name}', handle)
+app.router.add_route('GET', '/', handle)
+
+port = int(os.environ.get('PORT', 5000))
+web.run_app(app, port=port)
+
+
