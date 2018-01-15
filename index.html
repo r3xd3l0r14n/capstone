@@ -1,57 +1,64 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Async demo</title>
+<title>Connect demo</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script type="text/javascript">
     var ws;
+    var playerName;
+    var playerID;
+
     $().ready(function () {
-        $("#btnConnect").click(function () {
-            $("#status").text("connecting");
-            var ws_url = "ws://" + location.host + "/connect";
-            ws = new WebSocket(ws_url);
-            ws.onopen = function () {
-                $("#status").text("connected");
-            };
-            ws.onmessage = function (evt) {
-                $("#status").text(evt.data);
-            };
-            ws.onerror = function (evt) {
-                $("#status").text(evt.message);
-            };
-            ws.onclose = function () {
-                $("#status").text("disconnected");
-            };
-        });
-        $(document).keypress(function( event ) {
-            var code = event.keyCode;
-            if (!code && event.charCode)
-                 code = event.charCode;
-            if (ws && ws.readyState == WebSocket.OPEN) {
-                ws.send(code);
-                event.preventDefault();
-            }
-            else {
-                $("#status").text("Connection is closed");
-            }
-        });
-        $("#btnDisconnect").click(function () {
-            ws.close();
-        });
+        playerName = $("#playerName").val()
+        $("#status").text("Connecting...");
+
+        ws_url = "ws://" + location.host + "/connect"
+        ws = new WebSocket(ws_url);
+        ws.onopen = openHandler;
+        /*ws.onmessage = messageHandler;*/
+        ws.onerror = function(e) {
+        $("#status").text(e.message);
+        }
     });
+
+    $("#btnJoin").click(function(){
+        sendMessage(["join"]);
+    });
+
+    function sendMessage(msgArray) {
+        var msg = JSON.stringify(msgArray);
+        ws.send(msg);
+    }
+
+    function openHandler(e){
+        $("#status").text("connected to server");
+        playerName = $('playerName').val();
+
+        sendMessage(["new_player", playerName]);
+
+        $("mainScreen").hide();
+        $("playScreen").show();
+    }
+
+
 </script>
 </head>
 <body>
-<div id="status">&nbsp;</div>
+<div id="status" style="text-align:left">&nbsp;</div>
 
 <div>
 
-<div>
-<button id="btnConnect">Connect</button>
+<div id="mainScreen">
+    <input id="playerName" type="text" maxlength="15"/>
+    <button id="btnConnect">Connect</button>
+
+    <p><b style="color: white">Go FISH!</b>in python because we can</p>
+    <p>Currently only supports connecting thats it</p>
 </div>
 
-<div>
-<button id="btnDisconnect">Disconnect</button>
+<div id="playScreen">
+    <button id="btnJoin">Disconnect</button>
+    <div id="activePlayers">ActivePlayers</div>
 </div>
 
 </div>
