@@ -22,6 +22,7 @@ async def handle(request):
 async def wshandler(request):
     print("Connected")
     app = request.app
+    game = app["game"]
     ws = web.WebSocketResponse()
     await ws.prepare(request)
 
@@ -29,12 +30,14 @@ async def wshandler(request):
     while True:
         msg = await ws.receive()
         if msg.tp == web.MsgType.text:
-            print("Got message %s"%msg.data)
+            print("Got message %s" % msg.data)
 
             data = json.loads(msg.data)
             if not player:
                 if data[0] == "new_player":
-                    player = Game.new_player(data[1], ws)
+                    player = game.new_player(data[1], ws)
+            elif data[0] == "join":
+                game.join(player)
         elif msg.tp == web.MsgType.close:
             break
 

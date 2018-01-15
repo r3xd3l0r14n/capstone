@@ -16,3 +16,19 @@ class Game:
         player = Player(player_id, name, ws)
         self._players[player_id] = player
         return player
+
+    def join(self, player):
+        self.send_all("p_joined", player._id, player.name)
+
+    def send_personal(self, ws, *args):
+        msg = json.dumps([args])
+        ws.send_str(msg)
+
+    def send_all(self, *args):
+        self.send_all_multi([args])
+
+    def send_all_multi(self, commands):
+        msg = json.dumps(commands)
+        for player in self._players.values():
+            if player.ws:
+                player.ws.send_str(msg)
