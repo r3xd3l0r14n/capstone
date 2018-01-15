@@ -58,7 +58,7 @@ app.router.add_route('GET', '/connect', wshandler)
 app.router.add_route('GET', '/{name}', handle)
 app.router.add_route('GET', '/', handle)
 
-port = int(os.environ.get('PORT', 5000))
+port = int(os.environ.get('PORT', 8080))
 web.run_app(app, port=port)
 
 
