@@ -8,12 +8,12 @@ class Game:
         self._last_id = 0
         self._players = {}
 
-    def new_player(self, name, ws):
+    def new_player(self, name):
         self._last_id += 1
         player_id = self._last_id
-        self.send_personal(ws, "handshake", name, player_id)
+        #self.send_personal(ws, "handshake", name, player_id)
 
-        player = Player(player_id, name, ws)
+        player = Player(player_id, name)
         self._players[player_id] = player
         return player
 
