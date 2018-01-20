@@ -35,6 +35,9 @@
                         }
                     });
                 });
+                $("a#disconnect").click(function () {
+                    $('#result').text("Disconnected from Server... (Not really)")
+                });
             });
       </script>
 
@@ -55,7 +58,7 @@
                   <a class="nav-link" href="#" id="connect">Connect</a>
               </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Disconnect</a>
+              <a class="nav-link" href="#" id="disconnect">Disconnect</a>
             </li>
           </ul>
         </div>
