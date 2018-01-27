@@ -6,29 +6,20 @@ class Game:
 
     def __init__(self):
         self._last_id = 0
-        self._players = {}
+        self.players = {}
 
     def new_player(self, name):
         self._last_id += 1
         player_id = self._last_id
-        #self.send_personal(ws, "handshake", name, player_id)
-
         player = Player(player_id, name)
-        self._players[player_id] = player
-        return player
+        self.players[player_id] = player
+
+        return self.send_personal("handshake", name, player_id)
 
     def join(self, player):
-        self.send_all("p_joined", player._id, player.name)
+        return self.send_personal("p_joined", player._id, player.name)
 
-    def send_personal(self, ws, *args):
+    def send_personal(self, *args):
         msg = json.dumps([args])
-        ws.send_str(msg)
+        return msg
 
-    def send_all(self, *args):
-        self.send_all_multi([args])
-
-    def send_all_multi(self, commands):
-        msg = json.dumps(commands)
-        for player in self._players.values():
-            if player.ws:
-                player.ws.send_str(msg)

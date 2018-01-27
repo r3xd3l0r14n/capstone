@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/messageHandler.js"></script>
     <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/simple-sidebar.css" rel="stylesheet">
     <script type=text/javascript>
@@ -20,6 +21,7 @@
     <!-- Custom Script to pull in information from the textbox -->
       <script type="text/javascript">
             $(function () {
+                $("#card-table").hide()
                 $("a#connect").click(function () {
                     var userN = $('userName').val();
                     $.ajax({
@@ -27,14 +29,25 @@
                         data: $('form').serialize(),
                         type: 'POST',
                         success: function(response){
-                            uN = JSON.stringify(response);
-                            $('#result').text("Connected user:" + uN);
+                            messageHandler(response)
                         },
                         error: function(error){
                             console.log(error);
                         }
                     });
                 });
+                $("a#join").click(function () {
+                    $.ajax({
+                        url: '/joined',
+                        type: 'GET',
+                        success: function(response){
+                            messageHandler(response)
+                        },
+                        error: function(e){
+                            console.log(e)
+                        }
+                    })
+                })
                 $("a#disconnect").click(function () {
                     $('#result').text("Disconnected from Server... (Not really)")
                 });
@@ -60,6 +73,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#" id="disconnect">Disconnect</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="join">Join Game</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -69,14 +85,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-5">A Bootstrap 4 Starter Template</h1>
+          <h1 class="mt-5">A Multiplayer GoFish Web App!</h1>
             <form class="form-signin" action="/_add_user" method="post">
              <h2 class="form-signin-heading">Enter your username </h2>
              <input type="text" name="username" placeholder="Enter a Username" required autofocus>
             </form>
-          <p class="lead">Complete with pre-defined file paths and responsive navigation!</p>
+            <div id="active-players">Active Players</div>
             <div id="card-table">
                 <button id="deal">Deal!</button>
+
             </div>
         </div>
       </div>

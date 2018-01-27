@@ -22,9 +22,18 @@ def index():
 @app.route('/_add_user', methods=['POST'])
 def add_user():
     uN = request.form['username'];
-    lark.new_player(uN)
-    return json.dumps({'userName' : uN})
+    return lark.new_player(uN)
 
+@app.route('/joined', methods=['POST','GET'])
+def join():
+    plys = lark.players
+    pLen = len(plys)
+    ply = plys[pLen]
+    return lark.join(ply)
+
+@app.route('/disconnect', methods=['POST'])
+def disconnect():
+    return json.dump('disconnect')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

@@ -23,6 +23,7 @@ img.preload{
     height: 400px;
     width: 600px;
     position: center;
+    margin: auto;
     border:solid 6px black;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -34,7 +35,11 @@ img.preload{
 	left:310px;
 	top:170px;
 }
-
+#active-players{
+    width: 13em;
+    display: inline-block;
+    vertical-align: top;
+}
 #wrapper {
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
