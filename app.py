@@ -1,16 +1,9 @@
 from flask import *
+from flask_socketio import SocketIO, emit
 from game import Game
-# from flask_bootstrap import Bootstrap
-
-# def create_app():
-#    app = Flask(__name__)
-#    Bootstrap(app)
-
-#    return app
-
-# app = create_app()
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 lark = Game()
 
 
@@ -24,6 +17,11 @@ def add_user():
     uN = request.form['username'];
     return lark.new_player(uN)
 
+@socketio.on('my event')
+def handle_my_event(message):
+    print(message['data'])
+    emit('my response', {'data': 'Message'}, broadcast=True)
+
 @app.route('/joined', methods=['POST','GET'])
 def join():
     plys = lark.players
@@ -36,4 +34,4 @@ def disconnect():
     return json.dump('disconnect')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    socketio.run(app)
