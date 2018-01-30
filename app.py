@@ -11,16 +11,17 @@ lark = Game()
 def index():
     return render_template("/index.html")
 
+@socketio.on('handshake')
+def handle_my_event(json):
+    uN = json['userN']
+    ply = lark.new_player(uN)
+    emit('handshook', {'id': ply._id, 'name': ply.name}, broadcast=True)
 
-@app.route('/_add_user', methods=['POST'])
-def add_user():
-    uN = request.form['username'];
-    return lark.new_player(uN)
-
-@socketio.on('my event')
-def handle_my_event(message):
-    print(message['data'])
-    emit('my response', {'data': 'Message'}, broadcast=True)
+@socketio.on('join')
+def joined(json):
+    id = json['id']
+    ply = lark.join(id)
+    emit('joined', {'id': ply._id,'name':ply.name}, broadcast=True)
 
 @app.route('/joined', methods=['POST','GET'])
 def join():

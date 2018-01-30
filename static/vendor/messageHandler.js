@@ -1,42 +1,51 @@
-
-var socket = io.connect('http://'+document.domain+ ":"+location.port)
+var socket = io.connect('http://' + document.domain + ":" + location.port)
 var playerName;
+var handShake;
 var playerID;
 
 $().ready(function () {
-    $("a#connect").click(function (event) {
-        playerName = $("#username").val()
+    $('#card-table').hide()
+    $("a#connect").click(function () {
         $("#result").text("Connecting...");
-
-        socket.emit('my event', {data: 'I\'m a message'})
-        socket.on('my response', function (msg) {
-            //msg = JSON.stringify(['new_player', playerName])
-            $('#result').text(msg.data)
-        })
-
-        // socket.onopen = openHandler;
-        // socket.onmessage = messageHandler;
-        // socket.onerror = function (e) {
-        //     $("#result").text(e.message);
-        // };
+        playerName = $('#userN').val();
+        handShake = JSON.parse('{"userN":"' + playerName + '","starStatus":false}')
+        sendMessage('handshake', handShake)
     });
 
-    $("#btnJoin").click(function () {
-        sendMessage(["join"]);
+    $("a#join").click(function () {
+        msg = JSON.parse(JSON.stringify({'id':playerID,'name':playerName}))
+        sendMessage("join", msg);
     })
+
+    // Message handler is a bunch of socket.ons
+    socket.on('handshook', function (json) {
+        $("#connect").addClass("active")
+        $("#result").text("Connected User: " + json.name);
+        $("#card-table").show()
+        playerID = json.id
+    })
+    socket.on('joined', function (json) {
+        var id = json['id'];
+        var name = json['name'];
+        addPlayer(id, name);
+
+        if (id == playerID) {
+            $("a#join").css("visibility", "hidden")
+        }
+    })
+
 
 });
 
-function sendMessage(msgArray) {
-    var msg = JSON.stringify(msgArray);
-    socket.send(msg);
+function sendMessage(method, msgArray) {
+    //var msg = JSON.stringify(msgArray);
+    socket.emit(method, msgArray);
 }
 
 function openHandler(e) {
     $("#result").text("connected to server");
     playerName = $('#userName').val();
 
-    sendMessage(["new_player", playerName]);
 
     $("#card-table").show();
 
@@ -53,19 +62,9 @@ function messageHandler(e) {
         var cmd = json[i][0]
         switch (cmd) {
             case("handshake"):
-                $("#connect").addClass("active")
-                $("#result").text("Connected User: " + args[1]);
-                $("#card-table").show()
-                playerID = args[2];
-                break
-            case("p_joined"):
-                var id = args[1];
-                var name = args[2];
-                addPlayer(id, name);
 
-                if (id == playerID) {
-                    $("a#join").css("visibility", "hidden")
-                }
+            case("p_joined"):
+
                 break;
             case("disconnect"):
                 $("#connect").classList.remove("active")
