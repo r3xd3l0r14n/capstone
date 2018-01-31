@@ -21,7 +21,7 @@ def handle_my_event(json):
 def joined(json):
     id = json['id']
     ply = lark.join(id)
-    emit('joined', {'id': ply._id,'name':ply.name}, broadcast=True)
+    emit('joined', {'id': ply._id,'name':ply.name})
 
 @app.route('/joined', methods=['POST','GET'])
 def join():
