@@ -15,13 +15,13 @@ def index():
 def handle_my_event(json):
     uN = json['userN']
     ply = lark.new_player(uN)
-    emit('handshook', {'id': ply._id, 'name': ply.name}, broadcast=True)
+    emit('handshook', {'id': ply._id, 'name': ply.name})
 
 @socketio.on('join')
 def joined(json):
     id = json['id']
     ply = lark.join(id)
-    emit('joined', {'id': ply._id,'name':ply.name})
+    emit('joined', {'id': ply._id,'name':ply.name}, broadcast=True)
 
 @app.route('/joined', methods=['POST','GET'])
 def join():

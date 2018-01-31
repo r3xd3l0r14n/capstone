@@ -31,6 +31,8 @@ $().ready(function () {
 
         if (id == playerID) {
             $("a#join").css("visibility", "hidden")
+        } else {
+            $("#result").text("Silly you can't join twice")
         }
     })
 
