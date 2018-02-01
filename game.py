@@ -1,6 +1,7 @@
 import json
 from player import Player
 
+
 class Game:
 
     def __init__(self):
@@ -10,7 +11,7 @@ class Game:
     def new_player(self, name):
         self._last_id += 1
         player_id = self._last_id
-        #self.send_personal(ws, "handshake", name, player_id)
+        # self.send_personal(ws, "handshake", name, player_id)
 
         player = Player(player_id, name)
         self._players[player_id] = player
@@ -19,15 +20,16 @@ class Game:
     def join(self, id):
         return self._players[id]
 
-    def send_personal(self, ws, *args):
-        msg = json.dumps([args])
-        ws.send_str(msg)
+    def get_players_names(self, id):
+        for p in self._players:
+            if p.id == id:
+                print("id already exists in table")
+            s = ''.join(("\"", p.name, "\","))
+        return "[" + s[:-1] + "]"
 
-    def send_all(self, *args):
-        self.send_all_multi([args])
-
-    def send_all_multi(self, commands):
-        msg = json.dumps(commands)
-        for player in self._players.values():
-            if player.ws:
-                player.ws.send_str(msg)
+    def get_players_ids(self, id):
+        for p in self._players:
+            if p.id == id:
+                print("id already exists in table")
+            s = ''.join(("\"", p.name, "\","))
+        return "[" + s[:-1] + "]"

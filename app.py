@@ -21,14 +21,8 @@ def handle_my_event(json):
 def joined(json):
     id = json['id']
     ply = lark.join(id)
-    emit('joined', {'id': ply._id,'name':ply.name}, broadcast=True)
-
-@app.route('/joined', methods=['POST','GET'])
-def join():
-    plys = lark.players
-    pLen = len(plys)
-    ply = plys[pLen]
-    return lark.join(ply)
+    plys = lark.get_players()
+    emit('joined', {'id': ply._id,'name':ply.name, 'names' : plys}, broadcast=True)
 
 @app.route('/disconnect', methods=['POST'])
 def disconnect():

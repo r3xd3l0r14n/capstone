@@ -27,7 +27,10 @@ $().ready(function () {
     socket.on('joined', function (json) {
         var id = json['id'];
         var name = json['name'];
-        addPlayer(id, name);
+        addPlayer(name);
+        for (i = 0; i > json.names.length; i++){
+            addPlayer(json.names[i])
+        }
 
         if (id == playerID) {
             $("a#join").css("visibility", "hidden")
@@ -77,7 +80,6 @@ function messageHandler(e) {
     }
 }
 
-function addPlayer(id, name) {
-    $("#active-players").append('<div id="player' + id + '">'
-        + '<div class="name">' + name + '</div>');
+function addPlayer(name) {
+    $("#active-players").append('<div class="name">' + name + '</div>');
 }
