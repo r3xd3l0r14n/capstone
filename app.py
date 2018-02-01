@@ -21,7 +21,7 @@ def handle_my_event(json):
 def joined(json):
     id = json['id']
     ply = lark.join(id)
-    plys = lark.get_players()
+    plys = lark.get_players_names()
     emit('joined', {'id': ply._id,'name':ply.name, 'names' : plys}, broadcast=True)
 
 @app.route('/disconnect', methods=['POST'])

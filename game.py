@@ -26,10 +26,3 @@ class Game:
                 print("id already exists in table")
             s = ''.join(("\"", p.name, "\","))
         return "[" + s[:-1] + "]"
-
-    def get_players_ids(self, id):
-        for p in self._players:
-            if p.id == id:
-                print("id already exists in table")
-            s = ''.join(("\"", p.name, "\","))
-        return "[" + s[:-1] + "]"
