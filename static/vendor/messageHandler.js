@@ -29,7 +29,7 @@ $().ready(function () {
         var id = json['id'];
         var name = json['name'];
         addPlayer(name);
-        for (i = 0; i <= json.names.length; i++){
+        for (i = 0; i <= json['names'].length; i++){
             addPlayer(json.names[i])
         }
 
