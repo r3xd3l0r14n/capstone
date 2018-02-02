@@ -31,7 +31,6 @@ $().ready(function () {
         //addPlayer(name);
         for (i in json.names){
             addPlayer(json.names[i])
-
         }
 
         if (id == playerID) {

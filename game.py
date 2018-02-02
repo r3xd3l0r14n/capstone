@@ -25,6 +25,8 @@ class Game:
         for k, p in self._players.items():
             if id == k:
                 print("id already exists in table")
+            elif id == 1:
+                s += ''.join(("\"", p.name, "\","))
             else:
                 s += ''.join(("\"", p.name, "\","))
         return "[" + s[:-1] + "]"
