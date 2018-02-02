@@ -2,6 +2,7 @@ var socket = io.connect('http://' + document.domain + ":" + location.port)
 var playerName;
 var handShake;
 var playerID;
+var connPlayers;
 
 $().ready(function () {
     $('#card-table').hide()
