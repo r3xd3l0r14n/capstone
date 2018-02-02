@@ -23,10 +23,10 @@ class Game:
     def get_players_names(self, id):
         s = {}
         for k, p in self._players.items():
-            if id == 1:
+            if id == k:
+                print("id already exists in table")
+            elif id == 1:
                 s[k] = p.name
-            elif id == k:
-                print("id already exists")
             else:
                 s[k] = p.name
-        return s
+        return json.dumps(s)
