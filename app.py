@@ -25,7 +25,7 @@ def joined(json):
 
 @socketio.on('get_players')
 def get_players(json):
-    curr_id = json.id
+    curr_id = json
     plys = lark.get_players_names(curr_id)
     emit('got_players', plys, broadcast=True)
 
