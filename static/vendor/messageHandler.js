@@ -28,8 +28,8 @@ $().ready(function () {
     socket.on('joined', function (json) {
         var id = json['id'];
         var name = json['name'];
-        addPlayer(name);
-        for (i = 0; i <= json['names'].length; i++){
+        //addPlayer(name);
+        for (i in json.names){
             addPlayer(json.names[i])
         }
 
