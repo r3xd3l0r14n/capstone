@@ -28,7 +28,6 @@ $().ready(function () {
     socket.on('joined', function (json) {
         var id = json['id'];
         var name = json['name'];
-        addPlayer(name);
         sendMessage('get_players', id)
 
         if (id == playerID) {
