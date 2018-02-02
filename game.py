@@ -25,8 +25,6 @@ class Game:
         for k, p in self._players.items():
             if id == 1:
                 s[k] = p.name
-            elif id == k:
-                print("id already exists in table")
             else:
                 s[k] = p.name
         return s
