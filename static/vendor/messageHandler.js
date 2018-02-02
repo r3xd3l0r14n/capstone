@@ -31,12 +31,13 @@ $().ready(function () {
         //addPlayer(name);
         for (i in json.names){
             addPlayer(json.names[i])
+
         }
 
         if (id == playerID) {
             $("a#join").css("visibility", "hidden")
         } else {
-            $("#result").text("Silly you can't join twice")
+            $("#result").text(json.names[1])
         }
     })
 

@@ -23,7 +23,7 @@ def joined(json):
     ply = lark.join(id)
     plys = lark.get_players_names(id)
     print(plys)
-    emit('joined', {'id': ply._id,'name':ply.name, 'names' : plys}, broadcast=True)
+    emit('joined', {'id': ply._id,'name':ply.name, 'names':plys}, broadcast=True)
 
 @app.route('/disconnect', methods=['POST'])
 def disconnect():
