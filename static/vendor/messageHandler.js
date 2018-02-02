@@ -36,7 +36,7 @@ $().ready(function () {
         }
     })
     socket.on('got_players', function (json) {
-        for(i = 0; i < json.length; i++){
+        for(i in json){
             addPlayer(json[i])
         }
     })
