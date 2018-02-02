@@ -21,8 +21,8 @@ class Game:
         return self._players[id]
 
     def get_players_names(self, id):
-        for p in self._players:
-            if id == p._id:
+        for k, p in self._players:
+            if id == k:
                 print("id already exists in table")
             s = ''.join(("\"", p.name, "\","))
         return "[" + s[:-1] + "]"
