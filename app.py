@@ -22,6 +22,7 @@ def handle_my_event(json):
 @socketio.on('join')
 def joined(json):
     id = json['id']
+    print(len(lark._players))
     if len(lark._players) > 4:
         emit('max_players', "There are too many players connected")
     else:
