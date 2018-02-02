@@ -40,6 +40,9 @@ $().ready(function () {
             addPlayer(json[i])
         }
     })
+    socket.on('max_players', function(msg){
+        $("#result").text(msg)
+    })
 
 
 });

@@ -11,17 +11,23 @@ lark = Game()
 def index():
     return render_template("/index.html")
 
+
 @socketio.on('handshake')
 def handle_my_event(json):
     uN = json['userN']
     ply = lark.new_player(uN)
     emit('handshook', {'id': ply._id, 'name': ply.name})
 
+
 @socketio.on('join')
 def joined(json):
     id = json['id']
-    ply = lark.join(id)
-    emit('joined', {'id': ply._id,'name':ply.name}, broadcast=True)
+    if len(lark._players) > 4:
+        emit('max_players', "There are too many players connected")
+    else:
+        ply = lark.join(id)
+        emit('joined', {'id': ply._id, 'name': ply.name}, broadcast=True)
+
 
 @socketio.on('get_players')
 def get_players(json):
@@ -33,6 +39,7 @@ def get_players(json):
 @app.route('/disconnect', methods=['POST'])
 def disconnect():
     return json.dump('disconnect')
+
 
 if __name__ == "__main__":
     socketio.run(app)
