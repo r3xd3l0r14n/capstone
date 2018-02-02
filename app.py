@@ -23,7 +23,7 @@ def handle_my_event(json):
 def joined(json):
     id = json['id']
     print(len(lark._players))
-    if len(lark._players) > 4:
+    if len(lark._players) >= 4:
         emit('max_players', "There are too many players connected")
     else:
         ply = lark.join(id)
@@ -33,6 +33,7 @@ def joined(json):
 @socketio.on('get_players')
 def get_players(json):
     curr_id = json
+    print(lark.get_players_names(curr_id))
     emit('got_players', lark.get_players_names(curr_id), broadcast=True)
 
 
