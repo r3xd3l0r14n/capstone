@@ -29,4 +29,4 @@ class Game:
                 s[k] = p.name
             else:
                 s[k] = p.name
-        return json.dump(s)
+        return json.dumps(s)
