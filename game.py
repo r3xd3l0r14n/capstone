@@ -22,7 +22,7 @@ class Game:
 
     def get_players_names(self, id):
         for p in self._players:
-            if p._id == id:
+            if id == p._id:
                 print("id already exists in table")
             s = ''.join(("\"", p.name, "\","))
         return "[" + s[:-1] + "]"
