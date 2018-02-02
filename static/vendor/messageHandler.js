@@ -28,15 +28,16 @@ $().ready(function () {
     socket.on('joined', function (json) {
         var id = json['id'];
         var name = json['name'];
-        //addPlayer(name);
-        for (i in json.names){
-            addPlayer(json.names[i])
-        }
+        addPlayer(name);
+        sendMessage('get_players', id)
 
         if (id == playerID) {
             $("a#join").css("visibility", "hidden")
-        } else {
-            $("#result").text(json.names[1])
+        }
+    })
+    socket.on('got_players', function (json) {
+        for(i in json){
+            addPlayer(json[i])
         }
     })
 

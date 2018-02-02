@@ -21,12 +21,12 @@ class Game:
         return self._players[id]
 
     def get_players_names(self, id):
-        s = ""
+        s = {}
         for k, p in self._players.items():
             if id == k:
                 print("id already exists in table")
             elif id == 1:
-                s += ''.join(("\"", p.name, "\","))
+                s[k] = p.name
             else:
-                s += ''.join(("\"", p.name, "\","))
-        return "[" + s[:-1] + "]"
+                s[k] = p.name
+        return json.dump(s)
