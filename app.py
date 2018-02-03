@@ -37,10 +37,11 @@ def get_players(json):
     emit('got_players', lark.get_players_names(curr_id), broadcast=True)
 
 
-@app.route('/disconnect', methods=['POST'])
-def disconnect():
-    return json.dump('disconnect')
-
+@socketio.on('disconnect')
+def disconnect(json):
+    conn_id = json.id
+    delUsrN = lark.disconnect_player(conn_id)
+    emit('disconnected', delUsrN)
 
 if __name__ == "__main__":
     socketio.run(app)

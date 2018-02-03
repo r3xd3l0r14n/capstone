@@ -28,3 +28,8 @@ class Game:
             else:
                 s[k] = p.name
         return s
+
+    def disconnect_player(self, id):
+        delUserName = self._players[id].name
+        del self._players[id]
+        return delUserName

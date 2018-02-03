@@ -34,6 +34,7 @@ $().ready(function () {
         }
     })
     socket.on('got_players', function (json) {
+        $("#name").remove();
         for(i in json){
             addPlayer(json[i])
         }
