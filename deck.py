@@ -30,3 +30,9 @@ class Deck:
 
     def numCards(self):
         return len(self.cards)
+
+    def getDeck(self):
+        deck = []
+        for c in self.cards:
+            deck.append(str(c))
+        return dict(enumerate(deck))
