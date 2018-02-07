@@ -1,6 +1,6 @@
 import json
 from player import Player
-
+from deck import Deck
 
 class Game:
 

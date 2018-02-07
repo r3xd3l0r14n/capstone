@@ -19,42 +19,6 @@
     <script type=text/javascript>
          $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
-    <!-- Custom Script to pull in information from the textbox -->
-      <!--<script type="text/javascript">
-            $(function () {
-                $("#card-table").hide()
-                $("a#connect").click(function () {
-                    var userN = $('userName').val();
-                    $.ajax({
-                        url: '/_add_user',
-                        data: $('form').serialize(),
-                        type: 'POST',
-                        success: function(response){
-                            messageHandler(response)
-                        },
-                        error: function(error){
-                            console.log(error);
-                        }
-                    });
-                });
-                $("a#join").click(function () {
-                    $.ajax({
-                        url: '/joined',
-                        type: 'GET',
-                        success: function(response){
-                            messageHandler(response)
-                        },
-                        error: function(e){
-                            console.log(e)
-                        }
-                    })
-                })
-                $("a#disconnect").click(function () {
-                    $('#result').text("Disconnected from Server... (Not really)")
-                });
-            });
-      </script>-->
-
   </head>
 
   <body>
