@@ -58,24 +58,24 @@
   </head>
 
   <body>
-    <img class="preload" src="static/img/cards.png"/>
+    <img class="preload" src="../static/img/cards.png"/>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">GoFish Web App</a>
+        <a class="navbar-brand" href="#">Multiplayer GoFish</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                  <form id="emit" method="POST" action="#">
-                  <a class="nav-link" href="#" id="connect">Connect</a>
-                  </form>
-              </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="disconnect">Disconnect</a>
+                <form id="emit" method="POST" action="#">
+					<a class="nav-link" href="#" id="connect">Connect</a>
+                </form>
             </li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="disconnect">Disconnect</a>
+			</li>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="join">Join Game</a>
             </li>
@@ -88,25 +88,61 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-5">A Multiplayer GoFish Web App!</h1>
-             <h2 class="form-signin-heading">Enter your username </h2>
-             <input id="userN" type="text" name="username" placeholder="Enter a Username" required autofocus>
+			<div class="alert alert-success" role="alert">
+				<span id="result">Not Connected to Server</span>
+			</div>
+		    <div class="form-group row">
+				<div class="col-xs-2">
+					<label for="player">Player Name:</label>
+					<input id="userN" type="text" class="form-control" id="player">
+				</div>
+			</div>
             <div id="active-players">Active Players</div>
-            <div id="card-table">
-                <button id="deal">Deal!</button>
-            </div>
+			<div style="margin: auto;">
+				<div class="row">
+					<div id="divPlayer4" style="margin: auto;">
+						<p class="font-weight-bold">Player 4</p>
+						<label ID="lblPlayer4"></label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md" style="margin-top: 150px; padding-left:25px;">
+						<div id="divPlayer3" style="padding-left:150px;">
+							<p class="font-weight-bold">Player 3</p>
+							<label ID="lblPlayer3"></label>
+						</div>
+					</div>
+					<div class="col-md">
+						<div id="card-table">
+							<button class="btn" id="deal">Deal!</button>
+						</div>		
+					</div>
+					<div class="col-md" style="margin-top: 150px; padding-right:25px;">
+						<div id="divPlayer2" style="padding-right:150px;">
+							<p class="font-weight-bold">Player 2</p>
+							<label ID="lblPlayer2"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="margin: auto;">
+				<div class="row">
+					<div id="divPlayer1" style="margin: auto;">
+						<p class="font-weight-bold">Player 1</p>
+						<label ID="lblPlayer1"></label>
+					</div>
+				</div>
+			</div>
         </div>
       </div>
     </div>
-    <div class="alert alert-success" role="alert">
-        <span id="result">Not Connected to Server</span>
-    </div>
+
 
     <!-- Bootstrap core JavaScript -->
 
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="static/vendor/cards.js"></script>
-    <script src="static/vendor/test.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/vendor/cards.js"></script>
+    <script src="../static/vendor/test.js"></script>
 
   </body>
 
