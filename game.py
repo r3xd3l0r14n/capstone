@@ -23,10 +23,7 @@ class Game:
     def get_players_names(self, id):
         s = {}
         for k, p in self._players.items():
-            if id == 1:
-                s[k] = p.name
-            else:
-                s[k] = p.name
+            s[k] = p.name
         return s
 
     def disconnect_player(self, id):

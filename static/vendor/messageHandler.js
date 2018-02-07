@@ -6,6 +6,7 @@ var connPlayers;
 
 $().ready(function () {
     $('#card-table').hide()
+    $("#player-names").hide()
     $("a#connect").click(function () {
         $("#result").text("Connecting...");
         playerName = $('#userN').val();
@@ -30,6 +31,7 @@ $().ready(function () {
         $("#connect").addClass("active")
         $("#result").text("Connected User: " + json.name);
         $("#card-table").show()
+        $("#player-names").show()
         playerID = json.id
     });
     socket.on('disconnected', function (json) {
@@ -45,10 +47,25 @@ $().ready(function () {
         }
     })
     socket.on('got_players', function (json) {
-        $("#active-players").empty()
-        $("#active-players").text("Active Players:")
-        for (i in json) {
-            addPlayer(json[i])
+        var a = 1;
+        for (i in json){
+            switch (a){
+                case 1:
+                    $("#lblPlayer1").append(json[1])
+                    break;
+                case 2:
+                    $("#lblPlayer2").append(json[2])
+                    break;
+                case 3:
+                    $("#lblPlayer3").append(json[3])
+                    break;
+                case 4:
+                    $("#lblPlayer4").append(json[4])
+                    break;
+                default:
+                    $("#result").text("There are too many players connected")
+            }
+            a++;
         }
     });
     socket.on('max_players', function (msg) {
@@ -59,10 +76,9 @@ $().ready(function () {
 });
 
 function sendMessage(method, msgArray) {
-    //var msg = JSON.stringify(msgArray);
     socket.emit(method, msgArray);
 }
 
-function addPlayer(name) {
-    $("#active-players").append('<div class="name">' + name + '</div>');
-}
+//function addPlayer(name) {
+//    $("#active-players").append('<div class="name">' + name + '</div>');
+//}
