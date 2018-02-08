@@ -43,10 +43,10 @@ def disconnect(json):
     delUsrN = lark.disconnect_player(conn_id)
     emit('d_conned', delUsrN)
 
-#@socketio.on('init_game')
-#def game_init(json):
-#    lark.init_game()
-#    emit('init_gamed', lark.deck, broadcast=True)
+@socketio.on('init_game')
+def game_init(json):
+    #lark.init_game()
+    emit('init_gamed', broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app)
