@@ -7,6 +7,7 @@ var connPlayers;
 $().ready(function () {
     $('#card-table').hide()
     $("#player-names").hide()
+    $("#divPlayer1").hide()
     $("a#connect").click(function () {
         $("#result").text("Connecting...");
         playerName = $('#userN').val();
@@ -32,6 +33,7 @@ $().ready(function () {
         $("#result").text("Connected User: " + json.name);
         $("#card-table").show()
         $("#player-names").show()
+        $("#divPlayer1").show()
         playerID = json.id
     });
     socket.on('disconnected', function (json) {

@@ -16,7 +16,7 @@ socket.on('init_gamed', function (json) {
     p1hand = new cards.Hand({faceUp: false, y: 340})
     p4hand = new cards.Hand({faceUp: false, y: 60})
     p3hand = new cards.Hand({faceUp: false, x: 60})
-    p2hand = new cards.Hand({faceUp: false, x: 540, a:90})
+    p2hand = new cards.Hand({faceUp: false, x: 540})
 
     deck.deal(5, [p1hand, p2hand, p3hand, p4hand], 50)
 
