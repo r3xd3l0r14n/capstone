@@ -83,7 +83,7 @@ var cards = (function () {
                 height: opt.cardSize.height,
                 "background-image": 'url(' + opt.cardsUrl + ')',
                 position: 'absolute',
-                cursor: 'pointer'
+                cursor: 'pointer',
             }).addClass('card').data('card', this).appendTo($(table));
             this.showCard();
             this.moveToFront();
@@ -104,7 +104,8 @@ var cards = (function () {
                 .css('-moz-transform', 'rotate(' + angle + 'deg)')
                 .css('-ms-transform', 'rotate(' + angle + 'deg)')
                 .css('transform', 'rotate(' + angle + 'deg)')
-                .css('-o-transform', 'rotate(' + angle + 'deg)');
+                .css('-o-transform', 'rotate(' + angle + 'deg)')
+                .addClass('right-cards');
         },
 
         showCard: function () {
@@ -272,7 +273,8 @@ var cards = (function () {
                     }
                     return;
                 }
-                hands[i % hands.length].addCard(me.topCard());
+                card = me.topCard();
+                hands[i % hands.length].addCard(card);
                 hands[i % hands.length].render({callback: dealOne, speed: speed});
                 i++;
             }
@@ -295,7 +297,16 @@ var cards = (function () {
             for (var i = 0; i < this.length; i++) {
                 this[i].targetTop = top;
                 this[i].targetLeft = left + i * opt.cardSize.padding;
+                this[i].rotate(90)
             }
+        },
+
+        getHand: function (angle) {
+            me = this;
+            for(i in me){
+                this[i].rotate(angle)
+            }
+
         },
 
         toString: function () {
