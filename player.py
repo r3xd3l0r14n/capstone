@@ -2,25 +2,36 @@
 import sys
 
 class Player(object):
-	def __init__(self, deck):
+	def __init__(self, player_id, name):
+		self._id = player_id
+
+		#holds the name the player entered for themself
+		self.name = name
+
+		#need to discuss, we may need to pass the deck back and forth via JSON
+		"""
 		#object representing the player's hand
 		self.hand = Hand(deck)
-		#list that will contain books the player completed
-		self.book = []
-		#each player will share the deck object
+		# each player will share the deck object
 		self.deck = deck
+		"""
+
+		#list that will contain string representation of books the player completed
+		self.book = []
+
 		#score based on how many books they have
 		self.score = 0
-		#holds the player's name
-		self.name = input('Name Yourself: ').strip()
+
 
 	"""Method for a player to draw a card from the deck and add it to their hand"""
 	def draw(self, val):
 		cardDrawn = self.deck.pop_card()
 		self.hand.addCard(cardDrawn)
-		print('\n%s drew %s.' % (self.name, cardDrawn))
 
-		#if val = 1, will check for books after drawing
+		"""This code is here because we want to check if a player completed a book after drawing a card.
+			However, this is unnecessary and inefficient if we checked during each of the draws when initially
+			dealing the players their first 5 cards. So if we add a variable to the method, we can assign when 
+			a book check should be called if a player is drawing."""
 		if val == 1:
 			self.bookCheck()
 
@@ -32,24 +43,31 @@ class Player(object):
 	def printHand(self):
 		return self.hand.printHand()
 
+	def toString(self):
+		return self.name, self._id
+
 	"""Method to check if a player's hand has a specific rank, true if found, false if not"""
 	def checkHand(self, rank):
 		return self.hand.checkCards(rank)
-
-	"""Method to check if a player's hand is empty, if true and deck still has cards, player will draw 1"""
-	def emptyCheck(self):
-		if self.numCards() == 0 and self.deck.numCards() > 0:
-			self.draw(1)
 
 	"""Method to sort a player's hand by card ranks"""
 	def sortCards(self):
 		self.hand.sortHand()
 
-	"""Method that contains logic for a player to choose what card they'd like to request from another player (returns chosen rank)"""
+	#functionality will depend on if we pass the deck via JSON
+	"""
+	#Method to check if a player's hand is empty, if true and deck still has cards, player will draw 1
+	def emptyCheck(self):
+		if self.numCards() == 0 and self.deck.numCards() > 0:
+			self.draw(1)
+	"""
+
+	#fucntionality will depend on what information is received when a player selects a card they want to ask for
+	"""
+	Method that contains logic for a player to choose what card they'd like to request from another player (returns chosen rank)
 	def makeTurn(self):
 		#will loop until player provides correct input (valid rank AND player must have that rank in their hand
 		while True:
-			print ('\n%s\'s hand: %s' % (self.name,self.printHand()))
 			chooseCard = input('What card do you ask for? (Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King or "quit" to exit): ')
 			if chooseCard == 'quit':
 				sys.exit(0)
@@ -59,6 +77,7 @@ class Player(object):
 				print ("\nYou don\'t have that card. Try again!")
 			else:
 				return chooseCard
+	"""
 
 	"""Method to check player's hand for requested card, returns all available cards of rank requested in a list if found, false if not"""
 	def fishFor(self, rank):
@@ -66,8 +85,13 @@ class Player(object):
 		if self.checkHand(rank):
 			#if found, remove all cards from player's hand and add to list that will be returned
 			a = self.hand.removeCards(rank)
+
+			#functionality will depend on if we pass the deck via JSON because this will check if the deck is also empty
+			"""
 			#check if players hand is empty after card removal
 			self.emptyCheck()
+			"""
+
 			return a
 		else:
 			return False
@@ -82,8 +106,6 @@ class Player(object):
 			self.hand.addCard(cards[j])
 			j += 1
 
-		print('\n%s got %d more %s.' % (self.name, len(cards), rank))
-
 		#check if player completed a book after receiving cards
 		self.bookCheck()
 
@@ -91,15 +113,14 @@ class Player(object):
 	def bookCheck(self):
 		#list that will contain books completed or be empty if no books were completed
 		books = self.hand.bookCheck()
-		#string that will print what books were completed if any
+
+		#string that will print what current books were completed if any
 		res = []
 
 		#if length of list is greater than 1, a book was completed
 		if len(books) > 0:
 			self.score += len(books)
 			books.sort()
-
-			res.append('\nPlayer ' + self.name + ' has completed the following books:')
 
 			i = 0
 			while i < len(books):
@@ -111,10 +132,14 @@ class Player(object):
 
 			newStr = " ".join(res)
 
-			print(newStr)
-
+			# functionality will depend on if we pass the deck via JSON because this will check if the deck is also empty
+			"""
 			#check if player's hand is empty after completing a book
 			self.emptyCheck()
+			"""
+
+			#will return string representation of books that were just completed
+			return res
 
 	"""Method to print every book a player completed, or none if none were completed"""
 	def printBooks(self):
@@ -130,6 +155,6 @@ class Player(object):
 				i += 1
 
 			return res
-		else
+		else:
 			res = res.append('None')
 			return res
