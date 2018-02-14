@@ -21,6 +21,9 @@ $().ready(function () {
         msg = JSON.parse(JSON.stringify({'id': playerID, 'name': playerName}))
         sendMessage("join", msg);
     })
+    $("#deal").click(function () {
+        sendMessage('init_game')
+    })
 
     $("a#disconnect").click(function () {
         msg = JSON.parse(JSON.stringify({'id': playerID}));
@@ -77,28 +80,26 @@ $().ready(function () {
 
 });
 
-$("#deal").click(function () {
-    //What this function should do is bring in json that represents a pre-shuffled 52 card deck and push that to cards.js
-    //to create the initial deck
-    cards.init({table: "#card-table"})
 
-    deck = new cards.Deck();
-    deck.x -= 50;
+//What this function should do is bring in json that represents a pre-shuffled 52 card deck and push that to cards.js
+//to create the initial deck
+//cards.init({table: "#card-table"})
 
-    deck.addCards(cards.all)
-    deck.render({immediate: true})
-    sendMessage('init_game')
-})
+/*deck = new cards.Deck();
+deck.x -= 50;
 
+deck.addCards(cards.all)
+deck.render({immediate: true})*/
 
 socket.on('init_gamed', function (json) {
+    cards.init({table: "#card-table", deck : json.Deck})
 
     p1hand = new cards.Hand({faceUp: false, y: 340})
     p4hand = new cards.Hand({faceUp: false, y: 60})
     p3hand = new cards.Hand({faceUp: false, x: 60})
     p2hand = new cards.Hand({faceUp: false, x: 540})
 
-    deck.deal(5, [p1hand, p2hand, p3hand, p4hand], 50)
+    //deck.deal(5, [p1hand, p2hand, p3hand, p4hand], 50)
 
     switch (playerID) {
         case 1:

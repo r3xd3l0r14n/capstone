@@ -7,6 +7,7 @@ class Game:
     def __init__(self):
         self._last_id = 0
         self._players = {}
+        self.deck = Deck()
 
     def new_player(self, name):
         self._last_id += 1
@@ -30,3 +31,26 @@ class Game:
         delUserName = self._players[id].name
         del self._players[id]
         return delUserName
+
+    def init_game(self): # first_ply):
+        i = 1
+        if self.checkEnoughPlayers():
+            self.deck.shuffle()
+            hands = self.deck.dealHands()
+            while i <= len(self._players):
+                self._players[i].hand = hands[i]
+                i += 1
+
+            rtnMsg = {'Deck' : self.deck.getDeck()}
+        else:
+            rtnMsg = "Failure not enough Players"
+
+        return rtnMsg
+
+
+    def checkEnoughPlayers(self):
+        if len(self._players) >= 1:
+            msg = True
+        else:
+            msg = False
+        return msg

@@ -1,3 +1,4 @@
+/*
 
 //Tell the library which element to use for the table
 cards.init({table:'#card-table'});
@@ -58,4 +59,4 @@ lowerhand.click(function(card){
 
 //So, that should give you some idea about how to render a card game.
 //Now you just need to write some logic around who can play when etc...
-//Good luck :)
+//Good luck :)*/

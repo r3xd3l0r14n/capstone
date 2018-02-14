@@ -4,6 +4,7 @@ var cards = (function () {
         cardSize: {width: 69, height: 94, padding: 18},
         animationSpeed: 500,
         table: 'body',
+        deck: "",
         cardback: 'red',
         acesHigh: false,
         cardsUrl: '/static/img/cards.png',
@@ -37,12 +38,18 @@ var cards = (function () {
         if ($(opt.table).css('position') == 'static') {
             $(opt.table).css('position', 'relative');
         }
-        for (var i = start; i <= end; i++) {
-            all.push(new Card('h', i, opt.table));
-            all.push(new Card('s', i, opt.table));
-            all.push(new Card('d', i, opt.table));
-            all.push(new Card('c', i, opt.table));
+        count = Object.keys(opt.deck).length;
+        for (var i = 0; i < count; i++){
+            txt = opt.deck[i];
+            res = txt.split(" ");
+            all.push(new Card(res[2], res[0], opt.table))
         }
+        // for (var i = start; i <= end; i++) {
+        //     all.push(new Card('h', i, opt.table));
+        //     all.push(new Card('s', i, opt.table));
+        //     all.push(new Card('d', i, opt.table));
+        //     all.push(new Card('c', i, opt.table));
+        // }
         if (opt.blackJoker) {
             all.push(new Card('bj', 0, opt.table));
         }
@@ -51,7 +58,7 @@ var cards = (function () {
         }
 
         $('.card').click(mouseEvent);
-        shuffle(all);
+        //shuffle(all);
     }
 
     function shuffle(deck) {

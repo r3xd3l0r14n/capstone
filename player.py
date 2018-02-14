@@ -4,7 +4,7 @@ class Player:
     def __init__(self, player_id, name):#, deck):
         self._id = player_id
         self.name = name
-        #self.hand = Hand(deck)  # need to discuss, we may need to pass the deck back and forth via JSON
+        self.hand = Hand()  # need to discuss, we may need to pass the deck back and forth via JSON
         #self.book = []
         #self.deck = deck
         #self.score = 0

@@ -2,11 +2,10 @@
 from card import Card
 class Hand(object):
 
-	def __init__(self, deck):
+	def __init__(self):
 		#list containing the cards in the player's hand
 		self.hand = []
 		#each player will be share a deck object
-		self.deck = deck
 
 	"""Method to add a card to the player's hand"""
 	def addCard(self, card):

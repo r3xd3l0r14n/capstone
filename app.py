@@ -45,8 +45,8 @@ def disconnect(json):
 
 @socketio.on('init_game')
 def game_init(json):
-    #lark.init_game()
-    emit('init_gamed', broadcast=True)
+    rtn = lark.init_game()
+    emit('init_gamed', rtn, broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app)
