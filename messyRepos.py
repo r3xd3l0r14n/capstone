@@ -25,19 +25,19 @@ class Deck:
         # Gets the length of the deck
         return len(self.deck)
 
-        def Deal(self):
-            # Deals cards at the beginning of the game
-            hand1 = []  # Creates 4 empty hands
-            hand2 = []
-            hand3 = []
-            hand4 = []
-            for i in range(5):
-                hand1.append(self.drawCard())  # Draws cards for each hand
-                hand2.append(self.drawCard())
-                hand3.append(self.drawCard())
-                hand4.append(self.drawCard())
-            hands = [hand1, hand2, hand3, hand4]  # Puts the four hands in a list called hands
-            return hands
+    def Deal(self):
+        # Deals cards at the beginning of the game
+        hand1 = []  # Creates 4 empty hands
+        hand2 = []
+        hand3 = []
+        hand4 = []
+        for i in range(5):
+            hand1.append(self.drawCard())  # Draws cards for each hand
+            hand2.append(self.drawCard())
+            hand3.append(self.drawCard())
+            hand4.append(self.drawCard())
+        hands = [hand1, hand2, hand3, hand4]  # Puts the four hands in a list called hands
+        return hands
 
 
 class Card(self):
