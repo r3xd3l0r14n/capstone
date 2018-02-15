@@ -35,9 +35,12 @@ class Hand(object):
 	def numCards(self):
 		return len(self.hand)
 
-	"""Method to return the player's complete hand (a list of card objects)"""
+	"""Method to return the player's complete hand (a dict of string representation of the cards)"""
 	def getHand(self):
-		return self.hand
+		hand = []
+		for h in self.hand:
+			hand.append(str(h))
+		return dict(enumerate(hand))
 
 	"""Method to return a single string that represents the player's complete hand"""
 	def printHand(self):
