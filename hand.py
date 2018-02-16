@@ -1,11 +1,12 @@
 """Class that will contain a player's hand represented by a list of cards they have"""
-from card import Card
+
 class Hand(object):
 
 	def __init__(self):
 		#list containing the cards in the player's hand
 		self.hand = []
 		#each player will be share a deck object
+		#self.deck = deck
 
 	"""Method to add a card to the player's hand"""
 	def addCard(self, card):
@@ -34,9 +35,16 @@ class Hand(object):
 	def numCards(self):
 		return len(self.hand)
 
-	"""Method to return the player's complete hand (a list of card objects)"""
-	def getHand(self):
+	"""Method to return player's hand as a list of card objects"""
+	def getHandList(self):
 		return self.hand
+
+	"""Method to return the player's complete hand (a dict of string representation of the cards)"""
+	def getHandDict(self):
+		hand = []
+		for h in self.hand:
+			hand.append(str(h))
+		return dict(enumerate(hand))
 
 	"""Method to return a single string that represents the player's complete hand"""
 	def printHand(self):

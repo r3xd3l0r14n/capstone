@@ -39,17 +39,17 @@ var cards = (function () {
             $(opt.table).css('position', 'relative');
         }
         count = Object.keys(opt.deck).length;
-        for (var i = 0; i < count; i++){
+        for (var i = 0; i < count; i++) {
             txt = opt.deck[i];
             res = txt.split(" ");
             all.push(new Card(res[2], res[0], opt.table))
         }
-        // for (var i = start; i <= end; i++) {
-        //     all.push(new Card('h', i, opt.table));
-        //     all.push(new Card('s', i, opt.table));
-        //     all.push(new Card('d', i, opt.table));
-        //     all.push(new Card('c', i, opt.table));
-        // }
+        /*        for (var i = start; i <= end; i++) {
+                    all.push(new Card('h', i, opt.table));
+                    all.push(new Card('s', i, opt.table));
+                    all.push(new Card('d', i, opt.table));
+                    all.push(new Card('c', i, opt.table));
+                }*/
         if (opt.blackJoker) {
             all.push(new Card('bj', 0, opt.table));
         }
@@ -268,7 +268,7 @@ var cards = (function () {
             return 'Deck';
         },
 
-        deal: function (count, hands, speed, callback) {
+        deal: function (count, hands, speed, callback, hand) {
             var me = this;
             var i = 0;
             var totalCount = count * hands.length;
@@ -280,9 +280,50 @@ var cards = (function () {
                     }
                     return;
                 }
-                card = me.topCard();
+                card = me.topCard()
                 hands[i % hands.length].addCard(card);
                 hands[i % hands.length].render({callback: dealOne, speed: speed});
+                i++;
+            }
+
+            dealOne();
+        },
+        dealNew: function (count, hands, speed, callback, hand) {
+            var me = this;
+            var i = 0;
+            var n = 0;
+            var totalCount = count * hands.length;
+
+            function dealOne() {
+                if (me.length == 0 || i == totalCount) {
+                    if (callback) {
+                        callback();
+                    }
+                    return;
+                }
+                /*                c = Object.keys(hand).length;
+                                for (var n = 0; n < 5; n++) {
+                                    txt = hand[0][n];
+                                    res = txt.split(" ");
+                                    card = new Card(res[2], res[0], opt.table)
+                                    hands[i % hands.length].addCard(card);
+                                    //hands[i % hands.length].render({callback: dealOne, speed: speed});
+
+                                }*/
+                if (n < 5) {
+                    txt = hand[0][n];
+                    res = txt.split(" ");
+                    card = new Card(res[2], res[0], opt.table)
+                }
+                // txt = hand[0][n];
+                // res = txt.split(" ");
+                // card = new Card(res[2], res[0], opt.table)
+                hands[i % hands.length].addCard(card);
+                hands[i % hands.length].render({callback: dealOne, speed: speed});
+                // card = me.topCard()
+                // hands[i % hands.length].addCard(card);
+                // hands[i % hands.length].render({callback: dealOne, speed: speed});
+                n++;
                 i++;
             }
 
@@ -310,7 +351,7 @@ var cards = (function () {
 
         getHand: function (angle) {
             me = this;
-            for(i in me){
+            for (i in me) {
                 this[i].rotate(angle)
             }
 

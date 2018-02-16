@@ -41,7 +41,8 @@ class Game:
                 self._players[i].hand = hands[i]
                 i += 1
 
-            rtnMsg = {'Deck' : self.deck.getDeck()}
+            rtnMsg = {'Deck' : self.deck.getDeck(), 'Hands': [self._players[1].hand.getHandDict()]}
+
         else:
             rtnMsg = "Failure not enough Players"
 
