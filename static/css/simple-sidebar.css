@@ -35,6 +35,12 @@ img.preload{
 	left:310px;
 	top:170px;
 }
+#right-cards{
+    transform: rotate(90deg);
+}
+#left-cards{
+    transform: rotate(270deg);
+}
 #active-players{
     width: 13em;
     display: inline-block;
