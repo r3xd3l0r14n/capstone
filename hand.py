@@ -75,14 +75,12 @@ class Hand(object):
 		ranks = []
 		#list that will contain book ranks if player has any
 		books = []
-
 		i = 0
 		#loop through player's hand
 		while i < len(self.hand):
 			#if current card rank is not in rank list, add it and proceed to check for books
 			if self.hand[i] not in ranks:
 				ranks.append(self.hand[i])
-
 				#if hand has 4 of the same book, add card(only 1 needed) to book list and remove from hand
 				if self.hand.count(self.hand[i]) == 4:
 					books.append(self.hand[i])

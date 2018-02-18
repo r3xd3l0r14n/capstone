@@ -27,6 +27,24 @@ class Player:
     def checkHand(self, rank):
         return self.hand.checkCards(rank)
 
-
     def toString(self):
         return self.name, self._id
+    
+    def matchCheck(self):
+        return self.hand.bookCheck()
+    
+    def removeMatch(self, card):
+        return self.hand.removeCards(card)
+    
+    # true/false check for four of a kind
+    def fourKind(self):
+        ranks = []
+        books = []
+        i = 0
+        while i < len(self.hand):
+            if self.hand[i] not in ranks:
+                ranks.append(self.hand[i])
+                if self.hand.count(self.hand[i]) == 4:
+                    return True
+                else:
+                    return False

@@ -8,7 +8,8 @@ class Game:
         self._last_id = 0
         self._players = {}
         self.deck = Deck()
-
+        self.player = Player()
+        
     def new_player(self, name):
         self._last_id += 1
         player_id = self._last_id
@@ -60,81 +61,88 @@ class Game:
     def turn_update(self, turn):
         rtnMsg = {'Turn' : self._players[turn]}
         return rtnMsg
-    
-    def checkEnd(self):
+    '''
+    def checkQuit(self, player):
+        function to ensure player did not
+        disconnect from game 
         
+    def checkEnd(self):
+        function to check for empty deck and/or
+        empty hands
+        
+    def gameUpdate(self, turn, cardFishedfor, matches, etc)
+        function that returns a dict of information to 
+        message handler '''
     
     def game_loop(self):
         self.init_game()
         turn = self.whoFirst()
         last_person = len(self._players)
+        scores = {}
         # create a checkEnd()
         checkQuit() # create a checkQuit()
-        while self.checkEnd():
-            while True:
-                if turn < last_person:
-                    turn_update(turn)
-                    checkQuit()
-                    '''
-                    Need to discuss with Colin about what information will
-                    be returned from clicks
-                    
-                    if event.type == mouseClick:
-                        if position IVO of x:
-                            opponent = joe1
-                        elif position IVO of y:
-                            opponent = joe2
-                        else:
-                            if card.clicked(position):
-                                call a func to return selected card value
-                                matches = checkMatches(blah)
-                                if matches[0] != '':
-                                        for match in matches:
-                                            PLAYERHAND.addCard(match)
-                                            HANDS[opponent1].removeCard(match)
-                                            fk = fourKind(PLAYERHAND)
-                                            print(fk)
-                                            if fk:
-                                                SCORES[turn] += 1
-                                else:
-                                    checkQuit()
-                                    turn += 1
-                                    if self.deck.numCards() > 0:
-                                        player.draw()
-                                    checkFourKind(player hand)
-                                    if checkFourKind:
-                                        SCORES[turn] += 1
-                                    checkIfWon()
-                                    
-                else:
-                    turn_update(turn)
-                    checkQuit()
-                    if event.type == mouseClick:
-                        if position IVO of x:
-                            opponent = joe1
-                        elif position IVO of y:
-                            opponent = joe2
-                        else:
-                            if card.clicked(position):
-                                call a func to return selected card value
-                                matches = checkMatches(blah)
-                                if matches[0] != '':
-                                        for match in matches:
-                                            PLAYERHAND.addCard(match)
-                                            HANDS[opponent1].removeCard(match)
-                                            fk = fourKind(PLAYERHAND)
-                                            print(fk)
-                                            if fk:
-                                                SCORES[turn] += 1
-                                else:
-                                    checkQuit()
-                                    turn = 1
-                                    if self.deck.numCards() > 0:
-                                        player.draw()
-                                    checkFourKind(player hand)
-                                    if checkFourKind:
-                                        SCORES[turn] += 1
-                                    checkIfWon()
-                                    '''
+        while True:
+            if turn < last_person:
+                currentPlayer = self._players[turn]
+                turn_update(turn)
+                checkQuit()
+                '''
+                Need to discuss with Colin about what information will
+                be returned from clicks
+
+                if event.type == mouseClick:
+                    if position IVO of x:
+                        opponent = 1
+                    elif position IVO of y:
+                        opponent = 2
+                    else:
+                        if card.clicked(position):
+                            call a func to return selected card value
+                            if self.player.checkHand(rank):
+                                cardAdded = currentPlayer.addCard(card)
+                                cardRemoved = self._players[opponent].removeMatch(card)
+                                if self.player.fourKind():
+                                        scores[turn] += 1
+                            else:
+                                checkQuit()
+                                turn += 1
+                                if self.deck.numCards() > 0:
+                                    player.draw()
+                                self.player.fourKind()
+                                if self.player.fourKind():
+                                    scores[turn] += 1
+                                checkIfWon()
+
+            else:
+                currentPlayer = self._players[turn]
+                turn_update(turn)
+                checkQuit()
+
+                Need to discuss with Colin about what information will
+                be returned from clicks
+
+                if event.type == mouseClick:
+                    if position IVO of x:
+                        opponent = 1
+                    elif position IVO of y:
+                        opponent = 2
+                    else:
+                        if card.clicked(position):
+                            call a func to return selected card value
+                            if self.player.checkHand(rank):
+                                cardAdded = currentPlayer.addCard(card)
+                                cardRemoved = self._players[opponent].removeMatch(card)
+                                if self.player.fourKind():
+                                        scores[turn] += 1
+                            else:
+                                checkQuit()
+                                turn = 1
+                                if self.deck.numCards() > 0:
+                                    player.draw()
+                                self.player.fourKind()
+                                if self.player.fourKind():
+                                    scores[turn] += 1
+                                checkIfWon()
+                                '''
         
     
