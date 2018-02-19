@@ -26,7 +26,7 @@ socket.on('init_gamed', function (json) {
     p2hand = new cards.Hand({faceUp: false, x: 540})
 
     deck.dealNew(5, [p1hand], 50, function () {
-        console.log("WE are empty or filled?")
+        console.log("Deck loaded")
     }, json.Hands);
 
     switch (playerID) {
@@ -46,14 +46,14 @@ socket.on('init_gamed', function (json) {
 
     deck.click(function (card) {
         if (card === deck.topCard()) {
-            p1hand.addCard(deck.topCard());
+            p1hand.addCard(deck.topCard());1
             console.log(card.toString());
             p1hand.render();
         }
     });
 
     p1hand.click(function (card) {
-        console.log("You clicked on"+card.toString())
+        console.log("You clicked on "+card.toString())
     });
 
 });
