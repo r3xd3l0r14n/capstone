@@ -94,6 +94,7 @@ var cards = (function () {
             }).addClass('card').data('card', this).appendTo($(table));
             this.showCard();
             this.moveToFront();
+            $('.card').click(mouseEvent);
         },
 
         toString: function () {
@@ -309,7 +310,7 @@ var cards = (function () {
                                     //hands[i % hands.length].render({callback: dealOne, speed: speed});
 
                                 }*/
-                if (n < 5) {
+                if (n < count) {
                     txt = hand[0][n];
                     res = txt.split(" ");
                     card = new Card(res[2], res[0], opt.table)
@@ -344,7 +345,6 @@ var cards = (function () {
             for (var i = 0; i < this.length; i++) {
                 this[i].targetTop = top;
                 this[i].targetLeft = left + i * opt.cardSize.padding;
-                this[i].rotate(90)
             }
         },
 
