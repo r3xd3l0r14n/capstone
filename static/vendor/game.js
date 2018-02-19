@@ -7,9 +7,8 @@
 //
 // deck.addCards(cards.all)
 // deck.render({immediate: true})
-
-discardPile = new cards.Deck({faceUp: true});
-discardPile.x += 50;
+var deck;
+var p1hand;
 
 socket.on('init_gamed', function (json) {
     cards.init({table: "#card-table", deck: json.Deck})
@@ -17,16 +16,16 @@ socket.on('init_gamed', function (json) {
     deck = new cards.Deck();
     deck.x -= 50;
 
+
     deck.addCards(cards.all)
     deck.render({immediate: true})
-
 
     p1hand = new cards.Hand({faceUp: false, y: 340})
     p4hand = new cards.Hand({faceUp: false, y: 60})
     p3hand = new cards.Hand({faceUp: false, x: 60})
     p2hand = new cards.Hand({faceUp: false, x: 540})
 
-    deck.dealNew(5, [p1hand, p2hand, p3hand, p4hand], 50, function () {
+    deck.dealNew(5, [p1hand], 50, function () {
         console.log("WE are empty or filled?")
     }, json.Hands);
 
@@ -44,4 +43,18 @@ socket.on('init_gamed', function (json) {
             p4hand.faceUp = true
             break;
     }
-})
+
+    deck.click(function (card) {
+        if (card === deck.topCard()) {
+            p1hand.addCard(deck.topCard());
+            console.log(card.toString());
+            p1hand.render();
+        }
+    });
+
+    p1hand.click(function (card) {
+        console.log("You clicked on"+card.toString())
+    });
+
+});
+

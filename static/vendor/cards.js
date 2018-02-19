@@ -83,7 +83,7 @@ var cards = (function () {
             this.shortName = suit + rank;
             this.suit = suit;
             this.rank = rank;
-            this.name = suit.toUpperCase() + rank;
+            this.name = rank + " " + suit;
             this.faceUp = false;
             this.el = $('<div/>').css({
                 width: opt.cardSize.width,
@@ -112,7 +112,6 @@ var cards = (function () {
                 .css('-ms-transform', 'rotate(' + angle + 'deg)')
                 .css('transform', 'rotate(' + angle + 'deg)')
                 .css('-o-transform', 'rotate(' + angle + 'deg)')
-                .addClass('right-cards');
         },
 
         showCard: function () {
