@@ -47,25 +47,29 @@ $().ready(function () {
         var id = json['id'];
         sendMessage('get_players', id)
 
-        if (id == playerID) {
+        if (id === playerID) {
             $("a#join").css("visibility", "hidden")
         }
-    })
+    });
     socket.on('got_players', function (json) {
-        var a = 1;
+        $("#lblPlayer1").empty()
+        $("#lblPlayer2").empty()
+        $("#lblPlayer3").empty()
+        $("#lblPlayer4").empty()
+        var a = 0;
         for (i in json) {
             switch (a) {
+                case 0:
+                    $("#lblPlayer1").append(json[0])
+                    break;
                 case 1:
-                    $("#lblPlayer1").append(json[1])
+                    $("#lblPlayer2").append(json[1])
                     break;
                 case 2:
-                    $("#lblPlayer2").append(json[2])
+                    $("#lblPlayer3").append(json[2])
                     break;
                 case 3:
-                    $("#lblPlayer3").append(json[3])
-                    break;
-                case 4:
-                    $("#lblPlayer4").append(json[4])
+                    $("#lblPlayer4").append(json[3])
                     break;
                 default:
                     $("#result").text("There are too many players connected")
@@ -75,6 +79,9 @@ $().ready(function () {
     });
     socket.on('max_players', function (msg) {
         $("#result").text(msg)
+    });
+    socket.on('updateGame', function(json){
+        console.log(json.card)
     })
 
 

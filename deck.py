@@ -56,16 +56,12 @@ class Deck(object):
         # convert list of string representation of cards in the deck into a dictionary
         return dict(enumerate(deck))
 
-    def dealHands(self):
-        # Deals cards at the beginning of the game
-        hand1 = Hand()  # Creates 4 empty hands
-        hand2 = Hand()
-        hand3 = Hand()
-        hand4 = Hand()
-        for i in range(5):
-            hand1.addCard(self.drawCard())  # Draws cards for each hand
-            hand2.addCard(self.drawCard())
-            hand3.addCard(self.drawCard())
-            hand4.addCard(self.drawCard())
-        hands = [hand1, hand2, hand3, hand4]  # Puts the four hands in a list called hands
+    def dealHands(self, num):
+        h = 0
+        hands = [Hand(), Hand(), Hand(), Hand()]
+
+        while h <= num:
+            for i in range(5):
+                hands[h].addCard(self.drawCard())
+            h += 1
         return hands

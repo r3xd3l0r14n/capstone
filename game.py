@@ -2,6 +2,8 @@ import json
 from player import Player
 from deck import Deck
 import random
+from flask_socketio import emit
+
 
 class Game:
 
@@ -9,15 +11,15 @@ class Game:
         self._last_id = 0
         self._players = {}
         self.deck = Deck()
-        #self.player = Player()
-        
+        # self.player = Player()
+
     def new_player(self, name):
-        self._last_id += 1
         player_id = self._last_id
         # self.send_personal(ws, "handshake", name, player_id)
 
         player = Player(player_id, name)
         self._players[player_id] = player
+        self._last_id += 1
         return player
 
     def join(self, id):
@@ -34,34 +36,36 @@ class Game:
         del self._players[id]
         return delUserName
 
-    def init_game(self): # first_ply):
-        i = 1
+    def init_game(self):  # first_ply):
+        i = 0
         if self.checkEnoughPlayers():
             self.deck.shuffle()
-            hands = self.deck.dealHands()
-            while i <= len(self._players):
+            rtnMsg = {'game': '1', 'Deck': self.deck.getDeck(), 'Hands': {}}
+            hands = self.deck.dealHands(len(self._players) - 1)
+            while i <= len(self._players) - 1:
                 self._players[i].hand = hands[i]
+                rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
                 i += 1
-            rtnMsg = {'Deck' : self.deck.getDeck(), 'Hands': [self._players[1].hand.getHandDict()]}
         else:
-            rtnMsg = "Failure not enough Players" 
+            rtnMsg = {'game': '0', 'msg': 'Failure to start game, not enough players'}
         return rtnMsg
 
     def checkEnoughPlayers(self):
-        if len(self._players) >= 1:
+        if len(self._players) >= 2:
             msg = True
         else:
             msg = False
         return msg
-    
+
     def whoFirst(self):
         who_list = [x for x in self._players]
         num_of_players = len(self._players)
-        return who_list[random.randrage(0, num_of_players)]
-    
+        return who_list[random.randrange(0, num_of_players)]
+
     def turn_update(self, turn):
-        rtnMsg = {'Turn' : self._players[turn]}
+        rtnMsg = {'Turn': self._players[turn]._id}
         return rtnMsg
+
     '''
     def checkQuit(self, player):
         function to ensure player did not
@@ -74,7 +78,7 @@ class Game:
     def gameUpdate(self, turn, cardFishedfor, matches, etc)
         function that returns a dict of information to 
         message handler '''
-    
+
     # def game_loop(self):
     #     self.init_game()
     #     turn = self.whoFirst()
