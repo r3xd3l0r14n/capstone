@@ -21,7 +21,7 @@ $().ready(function () {
         msg = JSON.parse(JSON.stringify({'id': playerID, 'name': playerName}))
         sendMessage("join", msg);
     })
-    $("#deal").click(function () {
+    $("#startGame").click(function () {
         sendMessage('init_game')
     })
 

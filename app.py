@@ -36,13 +36,6 @@ def get_players(json):
     emit('got_players', lark.get_players_names(curr_id), broadcast=True)
 
 
-@socketio.on('clickCard')
-def clickCard(msg):
-    card = msg['card']
-    print(card)
-    emit('updateGame', {'card':'I\'m a card'})
-
-
 @socketio.on('d_conn')
 def disconnect(json):
     conn_id = json.id
@@ -53,6 +46,12 @@ def disconnect(json):
 @socketio.on('init_game')
 def game_init(json):
     rtn = lark.init_game()
+    emit('init_gamed', rtn, broadcast=True)
+
+
+@socketio.on('goFish')
+def goFish(json):
+    rtn = lark.updateGame(json['card'])
     emit('init_gamed', rtn, broadcast=True)
 
 

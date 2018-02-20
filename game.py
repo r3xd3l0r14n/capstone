@@ -14,12 +14,12 @@ class Game:
         # self.player = Player()
 
     def new_player(self, name):
+        self._last_id += 1
         player_id = self._last_id
         # self.send_personal(ws, "handshake", name, player_id)
 
         player = Player(player_id, name)
         self._players[player_id] = player
-        self._last_id += 1
         return player
 
     def join(self, id):
@@ -37,17 +37,17 @@ class Game:
         return delUserName
 
     def init_game(self):  # first_ply):
-        i = 0
+        i = 1
         if self.checkEnoughPlayers():
             self.deck.shuffle()
-            rtnMsg = {'game': '1', 'Deck': self.deck.getDeck(), 'Hands': {}}
-            hands = self.deck.dealHands(len(self._players) - 1)
-            while i <= len(self._players) - 1:
+            rtnMsg = {'Deck': self.deck.getDeck(), 'Hands': {}}
+            hands = self.deck.dealHands(len(self._players))
+            while i <= len(self._players):
                 self._players[i].hand = hands[i]
                 rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
                 i += 1
         else:
-            rtnMsg = {'game': '0', 'msg': 'Failure to start game, not enough players'}
+            rtnMsg = {'msg': 'Failure to start game, not enough players'}
         return rtnMsg
 
     def checkEnoughPlayers(self):
@@ -66,6 +66,8 @@ class Game:
         rtnMsg = {'Turn': self._players[turn]._id}
         return rtnMsg
 
+    def updateGame(self, card):
+        print(card)
     '''
     def checkQuit(self, player):
         function to ensure player did not
