@@ -51,19 +51,6 @@
 </nav>
 
 <!-- Page Content -->
-{#<div class="container">
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <div class="alert alert-success" role="alert">
-                <span id="result">Not Connected to Server</span>
-            </div>
-            <div class="form-group row">
-                <div class="col-xs-2">
-                    <label for="player">Player Name:</label>
-                    <input id="userN" type="text" class="form-control" id="player">
-                </div>
-            </div>#}
-<!-- Page Content -->
 <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -71,9 +58,8 @@
                 <div class="container" style="padding:10px;">
                     <div class="row">
                         <div class="col-sm-6">
-                            <form class="form-inline">
-                                <input type="text" id="userN" class="form-control mb-2 mr-sm-2 mb-sm-0"
-                                       id="inlineFormInput" placeholder="Enter Player Name" required>
+                            <form class="form-inline" id="formStartGame">
+                                <input type="text" id="userN" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Player Name" required>
                                 <button type="submit" class="btn btn-primary">Start Game</button>
                             </form>
                         </div>
@@ -85,42 +71,67 @@
                     </div>
                 </div>
                 <div id="active-players">Active Players</div>
-                <div style="margin: auto;" id="player-names">
+				<div class="container" style="padding:10px;">
                     <div class="row">
-                        <div id="divPlayer4" style="margin: auto;">
-                            <p class="font-weight-bold">Player 4</p>
-                            <label ID="lblPlayer4"></label>
-                            <label ID="lblPlayer4Score"></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md" style="margin-top: 150px; padding-left:25px;">
-                            <div id="divPlayer3" style="padding-left:150px;">
-                                <p class="font-weight-bold">Player 3</p>
-                                <label ID="lblPlayer3"></label>
-                                <label ID="lblPlayer3Score"></label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div id="card-table">
-                                <button class="btn" id="deal">Deal!</button>
-                            </div>
-                        </div>
-                        <div class="col-md" style="margin-top: 150px; padding-right:25px;">
-                            <div id="divPlayer2" style="padding-right:150px;">
-                                <p class="font-weight-bold">Player 2</p>
-                                <label ID="lblPlayer2"></label>
-                                <label ID="lblPlayer2Score"></label>
-                            </div>
+                        <div class="col-sm-6">
+							<div class="row"><p class="font-weight-bold">Player 1</p></div>
+							<div class="row"><label ID="lblPlayer1"></label></div>
+                            <div class="row"><p class="font-weight-bold">Score</p></div>
+                            <div class="row"><label ID="lblPlayer1Score">0</label></div>
+							<div class="row"><p class="font-weight-bold">Hand</p></div>
+                            <div class="row"><label ID="lblPlayer1Hand"></label></div>
+							<div class="row">
+								<form class="form-inline" id="formPlayer1Fish">
+									<input type="text" id="txtPlayer1GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+									<button type="submit" class="btn btn-primary">Fish</button>
+								</form>
+							</div>
+						</div>
+                        <div class="col-sm-6">
+							<div class="row"><p class="font-weight-bold">Player 2</p></div>
+							<div class="row"><label ID="lblPlayer2"></label></div>
+                            <div class="row"><p class="font-weight-bold">Score</p></div>
+                            <div class="row"><label ID="lblPlayer2Score">0</label></div>
+							<div class="row"><p class="font-weight-bold">Hand</p></div>
+                            <div class="row"><label ID="lblPlayer2Hand"></label></div>
+							<div class="row">
+								<form class="form-inline" id="formPlayer2Fish">
+									<input type="text" id="txtPlayer2GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+									<button type="submit" class="btn btn-primary">Fish</button>
+								</form>
+							</div>
                         </div>
                     </div>
                 </div>
-                <div style="margin: auto;">
+				<div class="container" style="padding:10px;">
                     <div class="row">
-                        <div id="divPlayer1" style="margin: auto;">
-                            <p class="font-weight-bold">Player 1</p>
-                            <label ID="lblPlayer1"></label>
-                            <label ID="lblPlayer1Score"></label>
+                        <div class="col-sm-6">
+							<div class="row"><p class="font-weight-bold">Player 3</p></div>
+							<div class="row"><label ID="lblPlayer3"></label></div>
+                            <div class="row"><p class="font-weight-bold">Score</p></div>
+                            <div class="row"><label ID="lblPlayer3Score">0</label></div>
+							<div class="row"><p class="font-weight-bold">Hand</p></div>
+                            <div class="row"><label ID="lblPlayer3Hand"></label></div>
+							<div class="row">
+								<form class="form-inline" id="formPlayer3Fish">
+									<input type="text" id="txtPlayer3GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+									<button type="submit" class="btn btn-primary">Fish</button>
+								</form>
+							</div>
+						</div>
+                        <div class="col-sm-6">
+							<div class="row"><p class="font-weight-bold">Player 4</p></div>
+							<div class="row"><label ID="lblPlayer4"></label></div>
+                            <div class="row"><p class="font-weight-bold">Score</p></div>
+                            <div class="row"><label ID="lblPlayer4Score">0</label></div>
+							<div class="row"><p class="font-weight-bold">Hand</p></div>
+                            <div class="row"><label ID="lblPlayer4Hand"></label></div>
+							<div class="row">
+								<form class="form-inline" id="formPlayer4Fish">
+									<input type="text" id="txtPlayer4GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+									<button type="submit" class="btn btn-primary">Fish</button>
+								</form>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -128,9 +139,6 @@
         </div>
     </div>
 </div>
-{#        </div>
-    </div>
-</div>#}
 <!-- Bootstrap core JavaScript -->
 
 <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
