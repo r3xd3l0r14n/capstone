@@ -54,83 +54,111 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
-            <div class="panel panel-default">
-                <div class="container" style="padding:10px;">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <form class="form-inline" id="formStartGame">
-                                <input type="text" id="userN" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Player Name" required>
-                                <button type="submit" id="startGame" class="btn btn-primary">Start Game</button>
-                            </form>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="alert alert-success" role="alert">
-                                <span id="result">Not Connected to Server</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="active-players">Active Players</div>
+            <div>
+				
+				<div class="container" style="padding:10px;">
+					<div class="card">
+						<div class="card-header">Game Controls</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-6">
+									<form class="form-inline" id="formStartGame">
+										<input type="text" id="userN" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Player Name" required>
+										<button type="submit" class="btn btn-primary">Start Game</button>
+									</form>
+								</div>
+								<div class="col-sm-6">
+									<div class="alert alert-success" role="alert">
+										<span id="result">Not Connected to Server</span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4"><button type="submit" class="btn btn-success">Connect</button></div>
+								<div class="col-sm-4"><button type="submit" class="btn btn-danger">Disconnect</button></div>
+								<div class="col-sm-4"><button type="submit" class="btn btn-info">Join Game</button></div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="container" style="padding:10px;">
                     <div class="row">
                         <div class="col-sm-6">
-							<div class="row"><p class="font-weight-bold">Player 1</p></div>
-							<div class="row"><label ID="lblPlayer1"></label></div>
-                            <div class="row"><p class="font-weight-bold">Score</p></div>
-                            <div class="row"><label ID="lblPlayer1Score">0</label></div>
-							<div class="row"><p class="font-weight-bold">Hand</p></div>
-                            <div class="row"><label ID="lblPlayer1Hand"></label></div>
-							<div class="row">
-								<form class="form-inline" id="formPlayer1Fish">
-									<input type="text" id="txtPlayer1GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
-									<button type="submit" id="btnPlayer1GoFish" class="btn btn-primary">Fish</button>
-								</form>
+							<div class="card">
+								<div class="card-header">Player 1</div>
+								<div class="card-body">
+									<div class="row"><p class="font-weight-bold">Name</p></div>
+									<div class="row"><label ID="lblPlayer1"></label></div>
+									<div class="row"><p class="font-weight-bold">Score</p></div>
+									<div class="row"><label ID="lblPlayer1Score">0</label></div>
+									<div class="row"><p class="font-weight-bold">Hand</p></div>
+									<div class="row"><label ID="lblPlayer1Hand"></label></div>
+									<div class="row">
+										<form class="form-inline" id="formPlayer1Fish">
+											<input type="text" id="txtPlayer1GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+											<button type="submit" class="btn btn-primary">Fish</button>
+										</form>
+									</div>
+								</div> 
 							</div>
 						</div>
                         <div class="col-sm-6">
-							<div class="row"><p class="font-weight-bold">Player 2</p></div>
-							<div class="row"><label ID="lblPlayer2"></label></div>
-                            <div class="row"><p class="font-weight-bold">Score</p></div>
-                            <div class="row"><label ID="lblPlayer2Score">0</label></div>
-							<div class="row"><p class="font-weight-bold">Hand</p></div>
-                            <div class="row"><label ID="lblPlayer2Hand"></label></div>
-							<div class="row">
-								<form class="form-inline" id="formPlayer2Fish">
-									<input type="text" id="txtPlayer2GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
-									<button type="submit" id="btnPlayer2GoFish" class="btn btn-primary">Fish</button>
-								</form>
-							</div>
+							<div class="card">
+								<div class="card-header">Player 2</div>
+								<div class="card-body">
+									<div class="row"><p class="font-weight-bold">Name</p></div>
+									<div class="row"><label ID="lblPlayer2"></label></div>
+									<div class="row"><p class="font-weight-bold">Score</p></div>
+									<div class="row"><label ID="lblPlayer2Score">0</label></div>
+									<div class="row"><p class="font-weight-bold">Hand</p></div>
+									<div class="row"><label ID="lblPlayer2Hand"></label></div>
+									<div class="row">
+										<form class="form-inline" id="formPlayer2Fish">
+											<input type="text" id="txtPlayer2GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+											<button type="submit" class="btn btn-primary">Fish</button>
+										</form>
+									</div>
+								</div>
                         </div>
                     </div>
                 </div>
 				<div class="container" style="padding:10px;">
                     <div class="row">
                         <div class="col-sm-6">
-							<div class="row"><p class="font-weight-bold">Player 3</p></div>
-							<div class="row"><label ID="lblPlayer3"></label></div>
-                            <div class="row"><p class="font-weight-bold">Score</p></div>
-                            <div class="row"><label ID="lblPlayer3Score">0</label></div>
-							<div class="row"><p class="font-weight-bold">Hand</p></div>
-                            <div class="row"><label ID="lblPlayer3Hand"></label></div>
-							<div class="row">
-								<form class="form-inline" id="formPlayer3Fish">
-									<input type="text" id="txtPlayer3GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
-									<button type="submit" id="btnPlayer3GoFish" class="btn btn-primary">Fish</button>
-								</form>
+							<div class="card">
+								<div class="card-header">Player 3</div>
+								<div class="card-body">
+									<div class="row"><p class="font-weight-bold">Name</p></div>
+									<div class="row"><label ID="lblPlayer3"></label></div>
+									<div class="row"><p class="font-weight-bold">Score</p></div>
+									<div class="row"><label ID="lblPlayer3Score">0</label></div>
+									<div class="row"><p class="font-weight-bold">Hand</p></div>
+									<div class="row"><label ID="lblPlayer3Hand"></label></div>
+									<div class="row">
+										<form class="form-inline" id="formPlayer3Fish">
+											<input type="text" id="txtPlayer3GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+											<button type="submit" class="btn btn-primary">Fish</button>
+										</form>
+									</div>
+								</div>
 							</div>
 						</div>
                         <div class="col-sm-6">
-							<div class="row"><p class="font-weight-bold">Player 4</p></div>
-							<div class="row"><label ID="lblPlayer4"></label></div>
-                            <div class="row"><p class="font-weight-bold">Score</p></div>
-                            <div class="row"><label ID="lblPlayer4Score">0</label></div>
-							<div class="row"><p class="font-weight-bold">Hand</p></div>
-                            <div class="row"><label ID="lblPlayer4Hand"></label></div>
-							<div class="row">
-								<form class="form-inline" id="formPlayer4Fish">
-									<input type="text" id="txtPlayer4GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
-									<button type="submit" id="btnPlayer4GoFish" class="btn btn-primary">Fish</button>
-								</form>
+							<div class="card">
+								<div class="card-header">Player 4</div>
+								<div class="card-body">
+								<div class="row"><p class="font-weight-bold">Name</p></div>
+								<div class="row"><label ID="lblPlayer4"></label></div>
+								<div class="row"><p class="font-weight-bold">Score</p></div>
+								<div class="row"><label ID="lblPlayer4Score">0</label></div>
+								<div class="row"><p class="font-weight-bold">Hand</p></div>
+								<div class="row"><label ID="lblPlayer4Hand"></label></div>
+								<div class="row">
+									<form class="form-inline" id="formPlayer4Fish">
+										<input type="text" id="txtPlayer4GoFish" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Enter Card Value" required>
+										<button type="submit" class="btn btn-primary">Fish</button>
+									</form>
+								</div>
 							</div>
                         </div>
                     </div>
