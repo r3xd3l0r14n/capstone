@@ -32,8 +32,9 @@ def joined(json):
 
 @socketio.on('get_players')
 def get_players(json):
-    curr_id = json
-    emit('got_players', lark.get_players_names(curr_id), broadcast=True)
+    s = lark.get_players_names()
+    print(s)
+    emit('got_players', s, broadcast=True)
 
 
 @socketio.on('d_conn')
@@ -52,8 +53,7 @@ def game_init(json):
 @socketio.on('goFish')
 def goFish(json):
     rtn = lark.updateGame(json['card'])
-    emit('init_gamed', rtn, broadcast=True)
-
+    emit('goFished', rtn, broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app)

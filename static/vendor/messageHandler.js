@@ -5,42 +5,39 @@ var playerID;
 var connPlayers;
 
 $().ready(function () {
-    $('#card-table').hide()
-    $("#player-names").hide()
-    $("#divPlayer1").hide()
-    $("a#connect").click(function () {
+    $("#connect").click(function (){
         $("#result").text("Connecting...");
-        playerName = $('#userN').val();
-        handShake = JSON.parse('{"userN":"' + playerName + '","starStatus":false}')
+        playerName = $("#userN").val();
+        handShake = JSON.parse(JSON.stringify({'userN':playerName}))
         sendMessage('handshake', handShake)
     });
 
     //Button or <a> Clicks to interface with the server
 
-    $("a#join").click(function () {
-        msg = JSON.parse(JSON.stringify({'id': playerID, 'name': playerName}))
-        sendMessage("join", msg);
+    // $("#joinGame").click(function () {
+    //     msg = JSON.parse(JSON.stringify({'id': playerID, 'name': playerName}))
+    //     sendMessage("join", msg);
+    // })
+    $("#joinGame").click(function () {
+        msg = JSON.parse(JSON.stringify({'id':playerID, 'name':playerName}))
+        sendMessage("join", msg)
     })
     $("#startGame").click(function () {
+        console.log("I registered Joined!")
         sendMessage('init_game')
     })
 
-    $("a#disconnect").click(function () {
+    $("#disconnect").click(function () {
         msg = JSON.parse(JSON.stringify({'id': playerID}));
         sendMessage("d_conn", msg);
     })
 
     // Message handler is a bunch of socket.ons
     socket.on('handshook', function (json) {
-        $("#connect").addClass("active")
         $("#result").text("Connected User: " + json.name);
-        $("#card-table").show()
-        $("#player-names").show()
-        $("#divPlayer1").show()
         playerID = json.id
     });
     socket.on('disconnected', function (json) {
-        $("#card-table").hide();
         $("#result").text("Disconnected " + json + " from server")
     });
     socket.on('joined', function (json) {
@@ -48,9 +45,12 @@ $().ready(function () {
         sendMessage('get_players', id)
 
         if (id === playerID) {
-            $("a#join").css("visibility", "hidden")
+            $("#joinGame").css("visibility", "hidden")
         }
     });
+    // socket.on('got_players', function(json){
+    //     $("#lblPlayer1").append(json[1])
+    // });
     socket.on('got_players', function (json) {
         $("#lblPlayer1").empty()
         $("#lblPlayer2").empty()
@@ -60,16 +60,16 @@ $().ready(function () {
         for (i in json) {
             switch (a) {
                 case 0:
-                    $("#lblPlayer1").append(json[0])
+                    $("#lblPlayer1").append(json[1]);
                     break;
                 case 1:
-                    $("#lblPlayer2").append(json[1])
+                    $("#lblPlayer2").append(json[2]);
                     break;
                 case 2:
-                    $("#lblPlayer3").append(json[2])
+                    $("#lblPlayer3").append(json[3]);
                     break;
                 case 3:
-                    $("#lblPlayer4").append(json[3])
+                    $("#lblPlayer4").append(json[4]);
                     break;
                 default:
                     $("#result").text("There are too many players connected")

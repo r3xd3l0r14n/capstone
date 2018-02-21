@@ -25,7 +25,7 @@ class Game:
     def join(self, id):
         return self._players[id]
 
-    def get_players_names(self, id):
+    def get_players_names(self):
         s = {}
         for k, p in self._players.items():
             s[k] = p.name
@@ -46,12 +46,13 @@ class Game:
                 self._players[i].hand = hands[i]
                 rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
                 i += 1
+                print(rtnMsg)
         else:
             rtnMsg = {'msg': 'Failure to start game, not enough players'}
         return rtnMsg
 
     def checkEnoughPlayers(self):
-        if len(self._players) >= 2:
+        if len(self._players) >= 1:
             msg = True
         else:
             msg = False
