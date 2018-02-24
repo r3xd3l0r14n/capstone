@@ -23,7 +23,7 @@ class Hand(object):
         while i < self.numCards():
             #if rank of card in hand is equal to rank of card to be removed
             #remove them from current player's hand and add them to the list
-            if card == Card.rank_names[self.hand[i].rank]:
+            if card == self.hand[i]:
                 cards.append(self.hand.pop(i))
                 #if a card was found, you need to decrement by 1 to account for the card removed
                 i -= 1
@@ -54,12 +54,12 @@ class Hand(object):
         return res
 
     """Method to check if a player's hand has a specific rank, true if found, false if not"""
-    def checkCards(self, rank):
+    def checkCards(self, card):
         i = 0
         found = False
         while i < self.numCards():
-            print(self.hand[i].rank)
-            if rank == Card.rank_names[self.hand[i].rank]:
+            print(self.hand[i])
+            if card == self.hand[i]:
                 print('wheres the break')
                 found = True
                 break

@@ -25,4 +25,4 @@ class Card(object):
 	"""Rich comparison method to check if a card object is equal to another card object
 		based on its rank value"""
 	def __eq__(self, other):
-		return self.rank == other
+		return self.rank == other.rank

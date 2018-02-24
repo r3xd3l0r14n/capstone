@@ -24,9 +24,9 @@ class Player:
         return self.hand.printHand()
 
 
-    def checkHand(self, rank):
-        print('checkHand %s' % rank)
-        return self.hand.checkCards(rank)
+    def checkHand(self, card):
+        print('checkHand %s' % card)
+        return self.hand.checkCards(card)
 
     def toString(self):
         return self.name, self._id

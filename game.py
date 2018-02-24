@@ -112,7 +112,7 @@ class Game:
         else: opponent = self._players[1]
         if self.updateGame(card):
             print('made it here')
-            if opponent.checkHand(card.rank):
+            if opponent.checkHand(card):
                 cardAdded = currentPlayer.hand.addCard(card)
                 cardRemoved = opponent.removeMatch(card)  # changed opponent to player+1
                 if currentPlayer.fourKind():

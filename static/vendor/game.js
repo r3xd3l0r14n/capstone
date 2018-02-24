@@ -1,8 +1,4 @@
 socket.on('init_gamed', function (json) {
-    $("#lblPlayer1Hand").empty()
-    $("#lblPlayer2Hand").empty()
-    $("#lblPlayer3Hand").empty()
-    $("#lblPlayer4Hand").empty()
     a = 1
     while (a <= 4) {
         for (i in json['Hands'][a]) {
@@ -14,12 +10,22 @@ socket.on('init_gamed', function (json) {
                 case 2:
                     $("#lblPlayer2Hand").append(" " + json['Hands'][a][i]);
                     break;
+                case 3:
+                    $("#lblPlayer3Hand").append(" " + json['Hands'][a][i]);
+                    break;
+                case 4:
+                    $("#lblPlayer4Hand").append(" " + json['Hands'][a][i]);
+                    break;
             }
         }
         a++
     }
 });
 socket.on('goFished', function (json) {
+    $("#lblPlayer1Hand").empty()
+    $("#lblPlayer2Hand").empty()
+    $("#lblPlayer3Hand").empty()
+    $("#lblPlayer4Hand").empty()
     a = 1
     while (a <= 4) {
         for (i in json['Hands'][a]) {
@@ -30,6 +36,12 @@ socket.on('goFished', function (json) {
                     break;
                 case 2:
                     $("#lblPlayer2Hand").append(" " + json['Hands'][a][i])
+                    break;
+                case 3:
+                    $("#lblPlayer3Hand").append(" " + json['Hands'][a][i]);
+                    break;
+                case 4:
+                    $("#lblPlayer4Hand").append(" " + json['Hands'][a][i]);
                     break;
             }
         }
@@ -43,22 +55,18 @@ $("#btnPlayer1GoFish").click(function () {
 });
 $("#btnPlayer2GoFish").click(function () {
     foo = $("#txtPlayer2GoFish").val();
-    msg = JSON.parse(JSON.stringify({'card': foo}));
+    msg = JSON.parse(JSON.stringify({'card': foo, 'id': playerID}));
     sendMessage('goFish', msg)
 });
 $("#btnPlayer3GoFish").click(function () {
     foo = $("#txtPlayer3GoFish").val();
-    msg = JSON.parse(JSON.stringify({'card': foo}));
+    msg = JSON.parse(JSON.stringify({'card': foo, 'id': playerID}));
     sendMessage('goFish', msg)
 });
 $("#btnPlayer4GoFish").click(function () {
     foo = $("#txtPlayer4GoFish").val();
-    msg = JSON.parse(JSON.stringify({'card': foo}));
+    msg = JSON.parse(JSON.stringify({'card': foo, 'id': playerID}));
     sendMessage('goFish', msg)
-});
-
-socket.on('goFished', function (json) {
-    console.log(json)
 });
 
 
