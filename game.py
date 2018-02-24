@@ -1,4 +1,6 @@
 import json
+
+from card import Card
 from player import Player
 from deck import Deck
 import random
@@ -11,12 +13,11 @@ class Game:
         self._last_id = 0
         self._players = {}
         self.deck = Deck()
-        # self.player = Player()
+        #self.player = Player()
 
     def new_player(self, name):
         self._last_id += 1
         player_id = self._last_id
-        # self.send_personal(ws, "handshake", name, player_id)
 
         player = Player(player_id, name)
         self._players[player_id] = player
@@ -40,13 +41,13 @@ class Game:
         i = 1
         if self.checkEnoughPlayers():
             self.deck.shuffle()
-            rtnMsg = {'Deck': self.deck.getDeck(), 'Hands': {}}
             hands = self.deck.dealHands(len(self._players))
+            rtnMsg = {'Deck': self.deck.getDeck(), 'Hands': {}}
             while i <= len(self._players):
                 self._players[i].hand = hands[i]
                 rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
                 i += 1
-                print(rtnMsg)
+                #print(rtnMsg)
         else:
             rtnMsg = {'msg': 'Failure to start game, not enough players'}
         return rtnMsg
@@ -58,97 +59,115 @@ class Game:
             msg = False
         return msg
 
-    def whoFirst(self):
-        who_list = [x for x in self._players]
-        num_of_players = len(self._players)
-        return who_list[random.randrange(0, num_of_players)]
+    def stripMsg(self, msg):
+       # print(msg['card'])
+        nMsg = msg['card'].split(' ')
+        return nMsg
 
-    def turn_update(self, turn):
-        rtnMsg = {'Turn': self._players[turn]._id}
-        return rtnMsg
+    #    def turn_update(self, turn):
+    #        rtnMsg = {'Turn': self._players[turn]._id}
+    #        return rtnMsg
 
     def updateGame(self, card):
-        print(card)
-    '''
+        #print('The card that was fished for was %s' % card)
+        return True
+
+    def newUpdateGame(self):  # first_ply):
+        i = 1
+        rtnMsg = {'Hands': {}}
+        while i <= len(self._players):
+             rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
+             i += 1
+        return rtnMsg
+
+    def suitCheck(self, s):
+        rtn = 0
+        if s == 'c':
+            rtn = 0
+        elif s == 'd':
+            rtn = 1
+        elif s == 'h':
+            rtn = 2
+        elif s == 's':
+            rtn = 3
+        else:
+            print("Fuck it")
+        return rtn
+
+    def game_loop(self, msg):
+        turn = msg['id']
+        scores = {}
+        last_person = len(self._players)
+        strip = self.stripMsg(msg)
+        suit = self.suitCheck(strip[1])
+        card = Card(suit, int(strip[0]))
+
+        # if self.checkEnoughPlayers():
+        # self.init_game()
+        # while True:
+        # if turn < last_person:
+        currentPlayer = self._players[turn]
+        if (currentPlayer._id +1) <= 4:
+            opponent = self._players[turn+1]
+        else: opponent = self._players[1]
+        if self.updateGame(card):
+            print('made it here')
+            if opponent.checkHand(card.rank):
+                cardAdded = currentPlayer.hand.addCard(card)
+                cardRemoved = opponent.removeMatch(card)  # changed opponent to player+1
+                if currentPlayer.fourKind():
+                    scores[turn] += 1
+        else:
+            #                        checkQuit()
+            turn += 1
+            print(turn)
+            if self.deck.numCards() > 0:
+                currentPlayer.draw()
+            if currentPlayer.fourKind():
+                scores[turn] += 1
+        return self.newUpdateGame()
+
+    #                        if checkIfWon():
+    #                           break
+
+    # else:
+    #     currentPlayer = self._players[turn]
+    #     #                    checkQuit()
+    #
+    #     if self.updateGame(card):
+    #         if self.player.checkHand(rank):
+    #             cardAdded = currentPlayer.addCard(card)
+    #             cardRemoved = self._players[opponent].removeMatch(card)
+    #         if self.player.fourKind():
+    #             scores[turn] += 1
+    #     else:
+    #         #                            checkQuit()
+    #         turn = 1
+    #         if self.deck.numCards() > 0:
+    #             player.draw()
+    #         self.player.fourKind()
+    #         if self.player.fourKind():
+    #         #             scores[turn] += 1
+    # else:
+    #     self.init_game()
+
+
+#                            if checkIfWon():
+#                                break
+
+#        create a checkEnd()
+#        checkQuit() # create a checkQuit()
+#                checkQuit()
+'''
     def checkQuit(self, player):
         function to ensure player did not
         disconnect from game 
-        
+
     def checkEnd(self):
         function to check for empty deck and/or
         empty hands
-        
+
     def gameUpdate(self, turn, cardFishedfor, matches, etc)
         function that returns a dict of information to 
-        message handler '''
-
-    # def game_loop(self):
-    #     self.init_game()
-    #     turn = self.whoFirst()
-    #     last_person = len(self._players)
-    #     scores = {}
-    #     # create a checkEnd()
-    #     checkQuit() # create a checkQuit()
-    #     while True:
-    #         if turn < last_person:
-    #             currentPlayer = self._players[turn]
-    #             turn_update(turn)
-    #             checkQuit()
-    '''
-    Need to discuss with Colin about what information will
-    be returned from clicks
-
-    if event.type == mouseClick:
-        if position IVO of x:
-            opponent = 1
-        elif position IVO of y:
-            opponent = 2
-        else:
-            if card.clicked(position):
-                call a func to return selected card value
-                if self.player.checkHand(rank):
-                    cardAdded = currentPlayer.addCard(card)
-                    cardRemoved = self._players[opponent].removeMatch(card)
-                    if self.player.fourKind():
-                            scores[turn] += 1
-                else:
-                    checkQuit()
-                    turn += 1
-                    if self.deck.numCards() > 0:
-                        player.draw()
-                    self.player.fourKind()
-                    if self.player.fourKind():
-                        scores[turn] += 1
-                    checkIfWon()
-
-else:
-    currentPlayer = self._players[turn]
-    turn_update(turn)
-    checkQuit()
-
-    Need to discuss with Colin about what information will
-    be returned from clicks
-
-    if event.type == mouseClick:
-        if position IVO of x:
-            opponent = 1
-        elif position IVO of y:
-            opponent = 2
-        else:
-            if card.clicked(position):
-                call a func to return selected card value
-                if self.player.checkHand(rank):
-                    cardAdded = currentPlayer.addCard(card)
-                    cardRemoved = self._players[opponent].removeMatch(card)
-                    if self.player.fourKind():
-                            scores[turn] += 1
-                else:
-                    checkQuit()
-                    turn = 1
-                    if self.deck.numCards() > 0:
-                        player.draw()
-                    self.player.fourKind()
-                    if self.player.fourKind():
-                        scores[turn] += 1
-                    checkIfWon()
-                    '''
+        message handler
+'''

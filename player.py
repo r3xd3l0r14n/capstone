@@ -25,6 +25,7 @@ class Player:
 
 
     def checkHand(self, rank):
+        print('checkHand %s' % rank)
         return self.hand.checkCards(rank)
 
     def toString(self):
@@ -40,11 +41,12 @@ class Player:
     def fourKind(self):
         ranks = []
         books = []
+        FUCK = self.hand.getHandList()
         i = 0
-        while i < len(self.hand):
-            if self.hand[i] not in ranks:
-                ranks.append(self.hand[i])
-                if self.hand.count(self.hand[i]) == 4:
+        while i < len(FUCK):
+            if FUCK[i] not in ranks:
+                ranks.append(FUCK[i])
+                if FUCK.count(FUCK[i]) == 4:
                     return True
                 else:
                     return False

@@ -14,7 +14,7 @@ class Card(object):
 
 	"""String method to return a string representation of a card object"""
 	def __str__(self):
-		return '%s of %s' % (Card.rank_names[self.rank],
+		return '%s %s' % (Card.rank_names[self.rank],
 							 Card.suit_names[self.suit])
 
 	"""Rich comparison method to check if a card object is less than another card object
@@ -25,4 +25,4 @@ class Card(object):
 	"""Rich comparison method to check if a card object is equal to another card object
 		based on its rank value"""
 	def __eq__(self, other):
-		return self.rank == other.rank
+		return self.rank == other

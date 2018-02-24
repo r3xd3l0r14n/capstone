@@ -52,7 +52,7 @@ def game_init(json):
 
 @socketio.on('goFish')
 def goFish(json):
-    rtn = lark.updateGame(json['card'])
+    rtn = lark.game_loop(json)
     emit('goFished', rtn, broadcast=True)
 
 if __name__ == "__main__":
