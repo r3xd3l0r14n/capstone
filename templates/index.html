@@ -39,41 +39,54 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <div>
+                
                 <div class="container" style="padding:10px;">
-                    <div class="card">
-                        <div class="card-header">Game Controls</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <form class="form-inline" id="formStartGame">
-                                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
-                                               id="userN" placeholder="Enter Player Name" required>
-                                        {#                                        <button id="startGame" class="btn btn-primary">Start Game</button>#}
-                                    </form>
-                                    <button id="startGame" class="btn btn-primary">Start Game</button>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="alert alert-success" role="alert">
-                                        <span id="result">Not Connected to Server</span>
-                                    </div>
+					<div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">Instructions</div>
+                                <div class="card-body">
+                                    <div class="row">
+										<p class="font-weight-bold">To join a game please enter your name in the Player Name field, then click Connect, then click Join Game. </p></div>
+                                    <div>
+									<div class="alert alert-success" role="alert">
+										<span id="result">Not Connected to Server</span>
+									</div>
+									</div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <button type="submit" id="connect" class="btn btn-success">Connect</button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="submit" id="disconnect" class="btn btn-danger">Disconnect</button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="submit" id="joinGame" class="btn btn-info">Join Game</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">Game Controls</div>
+                                <div class="card-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="userN" placeholder="Enter Player Name" required>
+										</div>
+										<div class="col-sm-6">
+											<button id="startGame" class="btn btn-primary" disabled>Start Game</button>
+										</div>
+									</div>
+									</br>
+                                    <div class="row">
+										<div class="col-sm-4">
+											<button type="submit" id="connect" class="btn btn-success">Connect</button>
+										</div>
+										<div class="col-sm-4">
+											<button type="submit" id="disconnect" class="btn btn-danger" disabled>Disconnect</button>
+										</div>
+										<div class="col-sm-4">
+											<button type="submit" id="joinGame" class="btn btn-info" disabled>Join Game</button>
+										</div>
+									</div>
+									</br>
+									<div class="row"><p class="font-weight-bold">Deck: <label id="lblDeck">empty</label></p></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="container" style="padding:10px;">
-                    <div class="row">
+					<div class="row">
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-header">Player 1</div>

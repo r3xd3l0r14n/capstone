@@ -35,6 +35,9 @@ $().ready(function () {
     // Message handler is a bunch of socket.ons
     socket.on('handshook', function (json) {
         $("#result").text("Connected User: " + json.name);
+		$("#connect").prop("disabled",true);
+		$("#joinGame").prop("disabled",false);
+		$("#startGame").prop("disabled",false);
         playerID = json.id
     });
     socket.on('disconnected', function (json) {
