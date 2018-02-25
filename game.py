@@ -138,7 +138,7 @@ class Game:
             turn += 1
             print(turn)
             if self.deck.numCards() > 0:
-                currentPlayer.draw()
+                currentPlayer.hand.addCard(deck.drawCard())
             if currentPlayer.fourKind():
                 scores[turn] += 1
         return self.newUpdateGame()
