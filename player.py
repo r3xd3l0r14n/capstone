@@ -1,99 +1,52 @@
-"""Class that will contain a player's hand represented by a list of cards they have"""
-from card import Card
-class Hand(object):
+from hand import Hand
+class Player:
 
-    def __init__(self):
-        #list containing the cards in the player's hand
-        self.hand = []
-        #each player will be share a deck object
+    def __init__(self, player_id, name):#, deck):
+        self._id = player_id
+        self.name = name
+        self.hand = Hand()  # need to discuss, we may need to pass the deck back and forth via JSON
+        #self.book = []
         #self.deck = deck
+        #self.score = 0
 
-    """Method to add a card to the player's hand"""
-    def addCard(self, card):
-        print("not sure i'm actually adding the card")
-        self.hand.append(card)
 
-    """Method to remove call cards of a specific rank from a player's hand and return them to the other player"""
-    def removeCards(self, card):
-        #list of cards that are being removed
-        cards = []
-        i = 0
+    def draw(self):
+        cardDrawn = self.deck.pop_card()
+        self.hand.addCard(cardDrawn)
+        print('%s drew %s.' % (self.name, cardDrawn))
 
-        #loop through cards in hand
-        while i < self.numCards():
-            #if rank of card in hand is equal to rank of card to be removed
-            #remove them from current player's hand and add them to the list
-            if card == self.hand[i]:
-                cards.append(self.hand.pop(i))
-                #if a card was found, you need to decrement by 1 to account for the card removed
-                i -= 1
-            i += 1
 
-        return cards
-
-    """Method to return the number of cards in the player's hand"""
     def numCards(self):
-        return len(self.hand)
+        return self.hand.numCards()
 
-    """Method to return player's hand as a list of card objects"""
-    def getHandList(self):
-        return self.hand
 
-    """Method to return the player's complete hand (a dict of string representation of the cards)"""
-    def getHandDict(self):
-        hand = []
-        for h in self.hand:
-            hand.append(str(h))
-        return dict(enumerate(hand))
-
-    """Method to return a single string that represents the player's complete hand"""
     def printHand(self):
-        res = []
-        for h in self.hand:
-            res.append(str(h))
-        return res
+        return self.hand.printHand()
 
-    """Method to check if a player's hand has a specific rank, true if found, false if not"""
-    def checkCards(self, card):
-        i = 0
-        found = False
-        while i < self.numCards():
-            print(self.hand[i])
-            if card == self.hand[i]:
-                print('wheres the break')
-                found = True
-                break
-            i += 1
 
-        return found
+    def checkHand(self, card):
+        print('checkHand %s' % card)
+        return self.hand.checkCards(card)
 
-    """Method to sort hand by card ranks"""
-    def sortHand(self):
-        self.hand.sort()
-
-    """Method to return any books (4 of the sane rank) in the player's hand"""
-    def bookCheck(self):
-        #list that will contain card ranks
+    def toString(self):
+        return self.name, self._id
+    
+    def matchCheck(self):
+        return self.hand.bookCheck()
+    
+    def removeMatch(self, card):
+        return self.hand.removeCards(card)
+    
+    # true/false check for four of a kind
+    def fourKind(self):
         ranks = []
-        #list that will contain book ranks if player has any
         books = []
+        FUCK = self.hand.getHandList()
         i = 0
-        #loop through player's hand
-        while i < len(self.hand):
-            #if current card rank is not in rank list, add it and proceed to check for books
-            if self.hand[i] not in ranks:
-                ranks.append(self.hand[i])
-                #if hand has 4 of the same book, add card(only 1 needed) to book list and remove from hand
-                if self.hand.count(self.hand[i]) == 4:
-                    books.append(self.hand[i])
-
-                    #loop through hand to remove the 4 cards of the same ranks
-                    j = 0
-                    card = self.hand[i]
-                    while j < 4:
-                        self.hand.remove(card)
-                        j += 1
-
-            i += 1
-
-        return books
+        while i < len(FUCK):
+            if FUCK[i] not in ranks:
+                ranks.append(FUCK[i])
+                if FUCK.count(FUCK[i]) == 4:
+                    return True
+                else:
+                    return False

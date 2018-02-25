@@ -120,7 +120,7 @@ class Game:
 
             """Currently checks if card player requested is in their hand, if it's not it will skip their turn for now. 
                 May be updated in future to loop so that user enters correct data"""
-            if currentPlayer.checkCard(card):
+            if currentPlayer.checkHand(card):
                 if opponent.checkHand(card):
                     #removes cards from opponent's hand, and returns them in a list
                     cardAdded = opponent.removeMatch(card)
