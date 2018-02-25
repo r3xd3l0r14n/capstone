@@ -59,9 +59,10 @@ class Game:
             msg = False
         return msg
 
+    #I believe i correctly changed this to return the input from user
     def stripMsg(self, msg):
        # print(msg['card'])
-        nMsg = msg['card'].split(' ')
+        nMsg = msg['card']
         return nMsg
 
     #    def turn_update(self, turn):
@@ -99,30 +100,45 @@ class Game:
         scores = {}
         last_person = len(self._players)
         strip = self.stripMsg(msg)
-        suit = self.suitCheck(strip[1])
-        card = Card(suit, int(strip[0]))
+        card = Card("temp", strip)
 
         # if self.checkEnoughPlayers():
         # self.init_game()
         # while True:
         # if turn < last_person:
         currentPlayer = self._players[turn]
-        if (currentPlayer._id +1) <= 4:
+
+        """should make it so its based on number of players and not static 4"""
+        if (currentPlayer._id +1) <= len(self._players):
             opponent = self._players[turn+1]
-        else: opponent = self._players[1]
+        else:
+            opponent = self._players[1]
+
+
         if self.updateGame(card):
             print('made it here')
-            if opponent.checkHand(card):
-                cardAdded = currentPlayer.hand.addCard(card)
-                cardRemoved = opponent.removeMatch(card)  # changed opponent to player+1
-                if currentPlayer.fourKind():
-                    scores[turn] += 1
+
+            """Currently checks if card player requested is in their hand, if it's not it will skip their turn for now. 
+                May be updated in future to loop so that user enters correct data"""
+            if currentPlayer.checkHand(card):
+                if opponent.checkHand(card):
+                    #removes cards from opponent's hand, and returns them in a list
+                    cardAdded = opponent.removeMatch(card)
+
+                    #loop through list of cards, and add to current player's hand
+                    count = 0
+                    while count < len(cardAdded):
+                        currentPlayer.hand.addCard(cardAdded(count))
+
+                    if currentPlayer.fourKind():
+                        scores[turn] += 1
+
         else:
             #                        checkQuit()
             turn += 1
             print(turn)
             if self.deck.numCards() > 0:
-                currentPlayer.draw()
+                currentPlayer.hand.addCard(self.deck.drawCard())
             if currentPlayer.fourKind():
                 scores[turn] += 1
         return self.newUpdateGame()
