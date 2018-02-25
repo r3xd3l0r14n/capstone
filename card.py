@@ -3,7 +3,7 @@
 class Card(object):
 
 	#list of suit names
-	suit_names = ["Clubs", "Diamonds", "Hearts", "Spades"]
+	suit_names = ["c", "d", "h", "s"]
 	#list of rank names
 	rank_names = [None, "Ace", "2", "3", "4", "5", "6", "7",
 				  "8", "9", "10", "Jack", "Queen", "King"]
@@ -14,7 +14,7 @@ class Card(object):
 
 	"""String method to return a string representation of a card object"""
 	def __str__(self):
-		return '%s of %s' % (Card.rank_names[self.rank],
+		return '%s %s' % (Card.rank_names[self.rank],
 							 Card.suit_names[self.suit])
 
 	"""Rich comparison method to check if a card object is less than another card object
