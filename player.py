@@ -25,7 +25,6 @@ class Player:
 
 
     def checkHand(self, card):
-        print('checkHand %s' % card)
         return self.hand.checkCards(card)
 
     def toString(self):
@@ -40,13 +39,14 @@ class Player:
     # true/false check for four of a kind
     def fourKind(self):
         ranks = []
-        books = []
-        FUCK = self.hand.getHandList()
-        i = 0
-        while i < len(FUCK):
-            if FUCK[i] not in ranks:
-                ranks.append(FUCK[i])
-                if FUCK.count(FUCK[i]) == 4:
-                    return True
-                else:
-                    return False
+        rtnMsg = {0:False, 1:0}
+        lark = self.hand.hand
+        for i in lark:
+            if i not in ranks:
+                ranks.append(i)
+                if lark.count(i) == 4:
+                    print(True)
+                    rtnMsg = {0:True, 1:i}
+                #else:
+                #     rtnMsg = False
+        return rtnMsg

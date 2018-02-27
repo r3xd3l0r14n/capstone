@@ -13,7 +13,8 @@ class Game:
         self._last_id = 0
         self._players = {}
         self.deck = Deck()
-        #self.player = Player()
+        # self.player = Player()
+        self.scores = {}
 
     def new_player(self, name):
         self._last_id += 1
@@ -39,6 +40,8 @@ class Game:
 
     def init_game(self):  # first_ply):
         i = 1
+        for score in self._players:
+            self.scores[score] = 0
         if self.checkEnoughPlayers():
             self.deck.shuffle()
             hands = self.deck.dealHands(len(self._players))
@@ -47,7 +50,7 @@ class Game:
                 self._players[i].hand = hands[i]
                 rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
                 i += 1
-                #print(rtnMsg)
+                # print(rtnMsg)
         else:
             rtnMsg = {'msg': 'Failure to start game, not enough players'}
         return rtnMsg
@@ -59,9 +62,8 @@ class Game:
             msg = False
         return msg
 
-    #I believe i correctly changed this to return the input from user
+    # I believe i correctly changed this to return the input from user
     def stripMsg(self, msg):
-       # print(msg['card'])
         nMsg = msg['card']
         return nMsg
 
@@ -70,15 +72,15 @@ class Game:
     #        return rtnMsg
 
     def updateGame(self, card):
-        #print('The card that was fished for was %s' % card)
+        # print('The card that was fished for was %s' % card)
         return True
 
     def newUpdateGame(self):  # first_ply):
         i = 1
-        rtnMsg = {'Hands': {}}
+        rtnMsg = {'Deck': self.deck.getDeck(), 'Hands': {}, 'Scores': self.scores}
         while i <= len(self._players):
-             rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
-             i += 1
+            rtnMsg['Hands'][i] = (self._players[i].hand.getHandDict())
+            i += 1
         return rtnMsg
 
     def suitCheck(self, s):
@@ -97,83 +99,52 @@ class Game:
 
     def game_loop(self, msg):
         turn = msg['id']
-        scores = {}
+        # scores = {}
         last_person = len(self._players)
         strip = self.stripMsg(msg)
-        card = Card("temp", strip)
-
-        # if self.checkEnoughPlayers():
-        # self.init_game()
-        # while True:
-        # if turn < last_person:
+        card = Card("temp", int(strip))
         currentPlayer = self._players[turn]
 
         """should make it so its based on number of players and not static 4"""
-        if (currentPlayer._id +1) <= len(self._players):
-            opponent = self._players[turn+1]
+        if (currentPlayer._id + 1) <= len(self._players):
+            opponent = self._players[turn + 1]
         else:
             opponent = self._players[1]
 
-
         if self.updateGame(card):
-            print('made it here')
 
             """Currently checks if card player requested is in their hand, if it's not it will skip their turn for now. 
                 May be updated in future to loop so that user enters correct data"""
-            if currentPlayer.checkHand(card):
-                if opponent.checkHand(card):
-                    #removes cards from opponent's hand, and returns them in a list
-                    cardAdded = opponent.removeMatch(card)
+            # if currentPlayer.checkHand(card):
+            if opponent.checkHand(card):
+                # removes cards from opponent's hand, and returns them in a list
+                cardAdded = opponent.removeMatch(card)
+                # loop through list of cards, and add to current player's hand
+                # count = 0
+                # while count < len(cardAdded):
+                #     currentPlayer.hand.addCard(cardAdded(count))
+                for x in cardAdded:
+                    currentPlayer.hand.addCard(x)
+                fourKind = currentPlayer.fourKind()
+                print(fourKind)
+                if fourKind[0] == True:
+                    self.scores[currentPlayer._id] += 1
+                    cardRemoved = currentPlayer.removeMatch(fourKind[1])
+                    print(self.scores)
+            else:
+                print(turn)
+                if self.deck.numCards() > 0:
+                    currentPlayer.hand.addCard(self.deck.drawCard())
+                fourKind = currentPlayer.fourKind()
+                print(fourKind)
+                if fourKind[0] == True:
+                    self.scores[currentPlayer._id] += 1
+                    cardRemoved = currentPlayer.removeMatch(fourKind[1])
+                    print(self.scores)
 
-                    #loop through list of cards, and add to current player's hand
-                    count = 0
-                    while count < len(cardAdded):
-                        currentPlayer.hand.addCard(cardAdded(count))
-
-                    if currentPlayer.fourKind():
-                        scores[turn] += 1
-
-        else:
-            #                        checkQuit()
-            turn += 1
-            print(turn)
-            if self.deck.numCards() > 0:
-                currentPlayer.hand.addCard(self.deck.drawCard())
-            if currentPlayer.fourKind():
-                scores[turn] += 1
         return self.newUpdateGame()
 
-    #                        if checkIfWon():
-    #                           break
 
-    # else:
-    #     currentPlayer = self._players[turn]
-    #     #                    checkQuit()
-    #
-    #     if self.updateGame(card):
-    #         if self.player.checkHand(rank):
-    #             cardAdded = currentPlayer.addCard(card)
-    #             cardRemoved = self._players[opponent].removeMatch(card)
-    #         if self.player.fourKind():
-    #             scores[turn] += 1
-    #     else:
-    #         #                            checkQuit()
-    #         turn = 1
-    #         if self.deck.numCards() > 0:
-    #             player.draw()
-    #         self.player.fourKind()
-    #         if self.player.fourKind():
-    #         #             scores[turn] += 1
-    # else:
-    #     self.init_game()
-
-
-#                            if checkIfWon():
-#                                break
-
-#        create a checkEnd()
-#        checkQuit() # create a checkQuit()
-#                checkQuit()
 '''
     def checkQuit(self, player):
         function to ensure player did not

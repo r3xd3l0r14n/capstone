@@ -57,9 +57,9 @@ class Deck(object):
         return dict(enumerate(deck))
 
     def dealHands(self, num):
-        h = 0
+        h = 1
         hands = [Hand(), Hand(), Hand(), Hand()]
-
+        print(num)
         while h <= num:
             for i in range(5):
                 hands[h].addCard(self.drawCard())

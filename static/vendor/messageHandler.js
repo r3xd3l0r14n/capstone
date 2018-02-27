@@ -83,11 +83,6 @@ $().ready(function () {
     socket.on('max_players', function (msg) {
         $("#result").text(msg)
     });
-    socket.on('updateGame', function(json){
-        console.log(json.card)
-    })
-
-
 });
 
 function sendMessage(method, msgArray) {

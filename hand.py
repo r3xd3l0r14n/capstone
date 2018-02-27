@@ -10,7 +10,6 @@ class Hand(object):
 
     """Method to add a card to the player's hand"""
     def addCard(self, card):
-        print("not sure i'm actually adding the card")
         self.hand.append(card)
 
     """Method to remove call cards of a specific rank from a player's hand and return them to the other player"""
@@ -28,7 +27,6 @@ class Hand(object):
                 #if a card was found, you need to decrement by 1 to account for the card removed
                 i -= 1
             i += 1
-
         return cards
 
     """Method to return the number of cards in the player's hand"""
@@ -58,9 +56,7 @@ class Hand(object):
         i = 0
         found = False
         while i < self.numCards():
-            print(self.hand[i])
             if card == self.hand[i]:
-                print('wheres the break')
                 found = True
                 break
             i += 1
