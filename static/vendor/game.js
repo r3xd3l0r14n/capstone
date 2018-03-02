@@ -49,11 +49,11 @@ socket.on('goFished', function (json) {
                     break;
                 case 3:
                     $("#lblPlayer3Hand").append(" " + json['Hands'][a][i]);
-                    $("#lblPlayer3Score").append(" " + json['Scores'][a]);
+                    $("#lblPlayer3Score").empty().append(" " + json['Scores'][a]);
                     break;
                 case 4:
                     $("#lblPlayer4Hand").append(" " + json['Hands'][a][i]);
-                    $("#lblPlayer4Score").append(" " + json['Scores'][a]);
+                    $("#lblPlayer4Score").empty().append(" " + json['Scores'][a]);
                     break;
             }
         }
